@@ -10,10 +10,16 @@ plugins {
 
 version = '0.0.1-SNAPSHOT'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
+ext {
+	javaSourceCompatibility = JavaVersion.VERSION_11
+	javaTargetCompatibility = JavaVersion.VERSION_11
+}
 
 apply plugin: 'com.synopsys.integration.library'
 
 dependencies {
+	implementation 'com.synopsys.integration:integration-common:24.2.1'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
