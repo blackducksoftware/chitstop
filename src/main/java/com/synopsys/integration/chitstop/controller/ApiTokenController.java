@@ -54,7 +54,7 @@ public class ApiTokenController {
         @RequestParam(value = "name", required = false) String name
     ) {
         ApiToken apiToken = retrieve(vm, username, name);
-        return apiToken.token;
+        return apiToken.getToken();
     }
 
 }

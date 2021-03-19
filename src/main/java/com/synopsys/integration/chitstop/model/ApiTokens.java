@@ -7,8 +7,8 @@
  */
 package com.synopsys.integration.chitstop.model;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,18 +21,15 @@ public class ApiTokens {
     public static final String DEFAULT_USERNAME = "sysadmin";
 
     private Map<String, Map<String, ApiToken>> apiTokenStore = new HashMap<>();
-    private Map<String, Map<String, List<ApiToken>>> apiTokenUserMap = new HashMap<>();
 
     public ApiTokens() {
         for (String vmKey : VM_KEYS) {
             apiTokenStore.put(vmKey, new HashMap<>());
-            apiTokenUserMap.put(vmKey, new HashMap<>());
         }
     }
 
     public void addToken(ApiToken apiToken) {
-        apiTokenStore.get(apiToken.vmKey).put(apiToken.name, apiToken);
-        apiTokenUserMap.get(apiToken.vmKey).computeIfAbsent(apiToken.username, key -> new LinkedList<>()).add(apiToken);
+        apiTokenStore.get(apiToken.getVmKey()).put(apiToken.getName(), apiToken);
     }
 
     /**
@@ -42,22 +39,23 @@ public class ApiTokens {
      * name
      */
     public ApiToken findByVM(String vm) {
-        String lookupKey = ApiToken.parseVmKey(vm);
-        return apiTokenUserMap.get(lookupKey).get(DEFAULT_USERNAME).get(0);
+        return findByVMAndUsername(vm, DEFAULT_USERNAME);
     }
 
     public ApiToken findByVMAndUsername(String vm, String username) {
         String lookupKey = ApiToken.parseVmKey(vm);
-        return apiTokenUserMap.get(lookupKey).get(username).get(0);
+        Collection<ApiToken> apiTokens = apiTokenStore.get(lookupKey).values();
+        return apiTokens
+                   .stream()
+                   .filter(apiToken -> username.equals(apiToken.getUsername()))
+                   .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
+                   .findFirst()
+                   .orElse(null);
     }
 
     public ApiToken findByVMAndTokenName(String vm, String tokenName) {
         String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenStore.get(lookupKey).get(tokenName);
-    }
-
-    public void loadTokens() {
-        // TODO implement this instead of just using the constructor
     }
 
 }
