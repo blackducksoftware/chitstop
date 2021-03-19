@@ -28,13 +28,11 @@ public class ApiTokens {
             apiTokenStore.put(vmKey, new HashMap<>());
             apiTokenUserMap.put(vmKey, new HashMap<>());
         }
-        addToken("bdstarlabs", new ApiToken("==", "sysadmin_read_and_write", "", ApiTokenScope.READ_AND_WRITE, "sysadmin"));
-        addToken("bdstarlabs", new ApiToken("++==", "sysadmin_just_read", "", ApiTokenScope.READ, "sysadmin"));
     }
 
-    private void addToken(String vmKey, ApiToken apiToken) {
-        apiTokenStore.get(vmKey).put(apiToken.name, apiToken);
-        apiTokenUserMap.get(vmKey).computeIfAbsent(apiToken.username, key -> new LinkedList<>()).add(apiToken);
+    public void addToken(ApiToken apiToken) {
+        apiTokenStore.get(apiToken.vmKey).put(apiToken.name, apiToken);
+        apiTokenUserMap.get(apiToken.vmKey).computeIfAbsent(apiToken.username, key -> new LinkedList<>()).add(apiToken);
     }
 
     /**
@@ -44,29 +42,22 @@ public class ApiTokens {
      * name
      */
     public ApiToken findByVM(String vm) {
-        String lookupKey = parseLookupKey(vm);
+        String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenUserMap.get(lookupKey).get(DEFAULT_USERNAME).get(0);
     }
 
     public ApiToken findByVMAndUsername(String vm, String username) {
-        String lookupKey = parseLookupKey(vm);
+        String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenUserMap.get(lookupKey).get(username).get(0);
     }
 
     public ApiToken findByVMAndTokenName(String vm, String tokenName) {
-        String lookupKey = parseLookupKey(vm);
+        String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenStore.get(lookupKey).get(tokenName);
     }
 
     public void loadTokens() {
         // TODO implement this instead of just using the constructor
-    }
-
-    private String parseLookupKey(String vm) {
-        return vm
-                   .replace("https://", "")
-                   .replace("int-", "")
-                   .replace(".dc1.lan", "");
     }
 
 }

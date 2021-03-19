@@ -10,6 +10,8 @@ package com.synopsys.integration.chitstop.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,18 +28,33 @@ public class ApiTokenController {
     }
 
     @GetMapping("/token")
-    public ApiToken retrieveByUsername(
+    public ApiToken retrieve(
         @RequestParam(value = "vm") String vm,
         @RequestParam(value = "username", required = false) String username,
-        @RequestParam(value = "name", required = false) String tokenName
+        @RequestParam(value = "name", required = false) String name
     ) {
-        if (StringUtils.isNotBlank(tokenName)) {
-            return apiTokens.findByVMAndTokenName(vm, tokenName);
+        if (StringUtils.isNotBlank(name)) {
+            return apiTokens.findByVMAndTokenName(vm, name);
         } else if (StringUtils.isNotBlank(username)) {
-            return apiTokens.findByVMAndUsername(vm ,username);
+            return apiTokens.findByVMAndUsername(vm, username);
         } else {
             return apiTokens.findByVM(vm);
         }
+    }
+
+    @PostMapping("/token")
+    public void store(@RequestBody ApiToken apiToken) {
+        apiTokens.addToken(apiToken);
+    }
+
+    @GetMapping("/puretoken")
+    public String retrievePure(
+        @RequestParam(value = "vm") String vm,
+        @RequestParam(value = "username", required = false) String username,
+        @RequestParam(value = "name", required = false) String name
+    ) {
+        ApiToken apiToken = retrieve(vm, username, name);
+        return apiToken.token;
     }
 
 }
