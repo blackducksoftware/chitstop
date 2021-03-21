@@ -10,6 +10,8 @@ package com.synopsys.integration.chitstop;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.WatchService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +33,15 @@ public class ChitstopApplication {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+
+    @Bean
+    /*
+    ejk - at the moment, we only need one thread for the ApiTokenWatcher, if we
+    need more, we'll need to use a different ExecutorService implementation
+     */
+    public ExecutorService executorService() {
+        return Executors.newSingleThreadExecutor();
     }
 
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchService;
+import java.util.concurrent.ExecutorService;
 
 import javax.annotation.PostConstruct;
 
@@ -24,11 +25,13 @@ public class ApiTokenWatchService {
     @Value("${stored.tokens.directory}")
     private String storedTokensDirectory;
 
+    private final ExecutorService executorService;
     private final WatchService watchService;
     private final ApiTokenPopulator apiTokenPopulator;
 
     @Autowired
-    public ApiTokenWatchService(WatchService watchService, ApiTokenPopulator apiTokenPopulator) throws IOException {
+    public ApiTokenWatchService(ExecutorService executorService, WatchService watchService, ApiTokenPopulator apiTokenPopulator) throws IOException {
+        this.executorService = executorService;
         this.watchService = watchService;
         this.apiTokenPopulator = apiTokenPopulator;
     }
@@ -40,7 +43,7 @@ public class ApiTokenWatchService {
 
         storedTokensPath.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
 
-        new Thread(new ApiTokenWatcher(storedTokensPath, watchService, apiTokenPopulator)).start();
+        executorService.submit(new ApiTokenWatcher(storedTokensPath, watchService, apiTokenPopulator));
     }
 
 }
