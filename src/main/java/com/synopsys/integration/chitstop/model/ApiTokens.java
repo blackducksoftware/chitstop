@@ -7,29 +7,50 @@
  */
 package com.synopsys.integration.chitstop.model;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.synopsys.integration.chitstop.storage.ApiTokenStorage;
 
 @Component
 public class ApiTokens {
-    public static final List<String> VM_KEYS = List.of("bdstarlabs", "relcandi", "hub01", "hub02", "hub03", "hub04", "swarm01", "auto03");
+    public static final BiFunction<String, String, Predicate<ApiToken>> FIND_BY_USERNAME = (lookupKey, username) -> (Predicate<ApiToken>) apiToken -> lookupKey.equals(apiToken.getVmKey()) && username.equals(apiToken.getUsername())
+                                                                                                                                                          && ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope());
+    public static final BiFunction<String, String, Predicate<ApiToken>> FIND_BY_NAME = (lookupKey, name) -> (Predicate<ApiToken>) apiToken -> lookupKey.equals(apiToken.getVmKey()) && name.equals(apiToken.getName())
+                                                                                                                                                  && ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope());
 
     public static final String DEFAULT_USERNAME = "sysadmin";
 
-    private Map<String, Map<String, ApiToken>> apiTokenStore = new HashMap<>();
+    private final ApiTokenStorage apiTokenStorage;
 
-    public ApiTokens() {
-        for (String vmKey : VM_KEYS) {
-            apiTokenStore.put(vmKey, new HashMap<>());
-        }
+    @Autowired
+    public ApiTokens(ApiTokenStorage apiTokenStorage) {
+        this.apiTokenStorage = apiTokenStorage;
     }
 
     public void addToken(ApiToken apiToken) {
-        apiTokenStore.get(apiToken.getVmKey()).put(apiToken.getName(), apiToken);
+        apiTokenStorage.addApiToken(apiToken);
+    }
+
+    public ApiToken retrieve(String vm, String username, String name) {
+        if (StringUtils.isNotBlank(name)) {
+            return findByVMAndTokenName(vm, name);
+        } else if (StringUtils.isNotBlank(username)) {
+            return findByVMAndUsername(vm, username);
+        } else {
+            return findByVM(vm);
+        }
+    }
+
+    public String retrievePure(String vm, String username, String name) {
+        return Optional.ofNullable(retrieve(vm, username, name))
+                   .map(ApiToken::getToken)
+                   .orElse("");
     }
 
     /**
@@ -44,9 +65,9 @@ public class ApiTokens {
 
     public ApiToken findByVMAndUsername(String vm, String username) {
         String lookupKey = ApiToken.parseVmKey(vm);
-        Collection<ApiToken> apiTokens = apiTokenStore.get(lookupKey).values();
-        return apiTokens
+        return apiTokenStorage.retrieveApiTokens()
                    .stream()
+                   .filter(apiToken -> lookupKey.equals(apiToken.getVmKey()))
                    .filter(apiToken -> username.equals(apiToken.getUsername()))
                    .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
                    .findFirst()
@@ -55,7 +76,13 @@ public class ApiTokens {
 
     public ApiToken findByVMAndTokenName(String vm, String tokenName) {
         String lookupKey = ApiToken.parseVmKey(vm);
-        return apiTokenStore.get(lookupKey).get(tokenName);
+        return apiTokenStorage.retrieveApiTokens()
+                   .stream()
+                   .filter(apiToken -> lookupKey.equals(apiToken.getVmKey()))
+                   .filter(apiToken -> tokenName.equals(apiToken.getName()))
+                   .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
+                   .findFirst()
+                   .orElse(null);
     }
 
 }

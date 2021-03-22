@@ -7,7 +7,6 @@
  */
 package com.synopsys.integration.chitstop.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,13 +32,7 @@ public class ApiTokenController {
         @RequestParam(value = "username", required = false) String username,
         @RequestParam(value = "name", required = false) String name
     ) {
-        if (StringUtils.isNotBlank(name)) {
-            return apiTokens.findByVMAndTokenName(vm, name);
-        } else if (StringUtils.isNotBlank(username)) {
-            return apiTokens.findByVMAndUsername(vm, username);
-        } else {
-            return apiTokens.findByVM(vm);
-        }
+        return apiTokens.retrieve(vm, username, name);
     }
 
     @PostMapping("/token")
@@ -53,8 +46,7 @@ public class ApiTokenController {
         @RequestParam(value = "username", required = false) String username,
         @RequestParam(value = "name", required = false) String name
     ) {
-        ApiToken apiToken = retrieve(vm, username, name);
-        return apiToken.getToken();
+        return apiTokens.retrievePure(vm, username, name);
     }
 
 }

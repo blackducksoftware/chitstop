@@ -7,7 +7,9 @@
  */
 package com.synopsys.integration.chitstop.model;
 
-public class ApiToken {
+import com.synopsys.integration.util.Stringable;
+
+public class ApiToken extends Stringable {
     private String token;
     private String vmKey;
     private String name;
