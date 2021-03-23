@@ -8,7 +8,7 @@
 package com.synopsys.integration.chitstop.model;
 
 import java.util.Optional;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +19,11 @@ import com.synopsys.integration.chitstop.storage.ApiTokenStorage;
 
 @Component
 public class ApiTokens {
-    public static final BiFunction<String, String, Predicate<ApiToken>> FIND_BY_USERNAME = (lookupKey, username) -> (Predicate<ApiToken>) apiToken -> lookupKey.equals(apiToken.getVmKey()) && username.equals(apiToken.getUsername())
-                                                                                                                                                          && ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope());
-    public static final BiFunction<String, String, Predicate<ApiToken>> FIND_BY_NAME = (lookupKey, name) -> (Predicate<ApiToken>) apiToken -> lookupKey.equals(apiToken.getVmKey()) && name.equals(apiToken.getName())
-                                                                                                                                                  && ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope());
-
     public static final String DEFAULT_USERNAME = "sysadmin";
+
+    public static final Function<String, Predicate<ApiToken>> BY_COMMON = (vm) -> (apiToken) -> apiToken.getVmKey().equals(ApiToken.parseVmKey(vm)) && apiToken.getScope().equals(ApiTokenScope.READ_AND_WRITE);
+    public static final Function<String, Predicate<ApiToken>> BY_TOKEN_NAME = (tokenName) -> (apiToken) -> apiToken.getTokenName().equals(tokenName);
+    public static final Function<String, Predicate<ApiToken>> BY_USERNAME = (username) -> (apiToken) -> apiToken.getUsername().equals(username);
 
     private final ApiTokenStorage apiTokenStorage;
 
@@ -64,23 +63,19 @@ public class ApiTokens {
     }
 
     public ApiToken findByVMAndUsername(String vm, String username) {
-        String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenStorage.retrieveApiTokens()
                    .stream()
-                   .filter(apiToken -> lookupKey.equals(apiToken.getVmKey()))
-                   .filter(apiToken -> username.equals(apiToken.getUsername()))
-                   .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
+                   .filter(BY_COMMON.apply(vm))
+                   .filter(BY_USERNAME.apply(username))
                    .findFirst()
                    .orElse(null);
     }
 
     public ApiToken findByVMAndTokenName(String vm, String tokenName) {
-        String lookupKey = ApiToken.parseVmKey(vm);
         return apiTokenStorage.retrieveApiTokens()
                    .stream()
-                   .filter(apiToken -> lookupKey.equals(apiToken.getVmKey()))
-                   .filter(apiToken -> tokenName.equals(apiToken.getName()))
-                   .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
+                   .filter(BY_COMMON.apply(vm))
+                   .filter(BY_TOKEN_NAME.apply(tokenName))
                    .findFirst()
                    .orElse(null);
     }

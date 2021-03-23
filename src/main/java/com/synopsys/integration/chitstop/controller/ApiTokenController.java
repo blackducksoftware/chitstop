@@ -30,9 +30,9 @@ public class ApiTokenController {
     public ApiToken retrieve(
         @RequestParam(value = "vm") String vm,
         @RequestParam(value = "username", required = false) String username,
-        @RequestParam(value = "name", required = false) String name
+        @RequestParam(value = "tokenName", required = false) String tokenName
     ) {
-        return apiTokens.retrieve(vm, username, name);
+        return apiTokens.retrieve(vm, username, tokenName);
     }
 
     @PostMapping("/token")
@@ -44,9 +44,9 @@ public class ApiTokenController {
     public String retrievePure(
         @RequestParam(value = "vm") String vm,
         @RequestParam(value = "username", required = false) String username,
-        @RequestParam(value = "name", required = false) String name
+        @RequestParam(value = "tokenName", required = false) String tokenName
     ) {
-        return apiTokens.retrievePure(vm, username, name);
+        return apiTokens.retrievePure(vm, username, tokenName);
     }
 
 }
