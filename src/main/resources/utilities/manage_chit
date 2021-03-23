@@ -1,12 +1,16 @@
 #! /bin/bash
 
-EXEC_OPTION="${1^^}"
+EXEC_OPTION="HELP"
 CHIT_JAR=""
+CHIT_JAR_ARGS=""
 CHIT_PID=""
+CHIT_PID_OWNER=""
 CHIT_RUNNING=""
 CHIT_STATUS_MSG=""
+SCRIPT_RUNNER=$(whoami)
 
 function _chit_start() {
+  local fullChitCmd loggingDate logFile
   _get_chit_pid
 
   if [[ "${CHIT_RUNNING}" != "NO" ]]; then
@@ -17,10 +21,14 @@ function _chit_start() {
 
   _get_chit_jar
 
-  echo "Starting the chit using cmd: nohup java -jar ${CHIT_JAR} &"
-  echo "Once executed, this will not return you back to the command prompt until you hit return"
+  fullChitCmd="nohup java -jar ${CHIT_JAR}${CHIT_JAR_ARGS}"
+  loggingDate=$(date +%s)
+  logFile="/srv/the_chit/chit_log.${loggingDate}"
 
-  nohup java -jar "${CHIT_JAR}" &
+  echo "Starting the chit: ${fullChitCmd}"
+  echo "Logs will be sent to: ${logFile}"
+
+  ${fullChitCmd} 1> "${logFile}" 2>&1 &
 }
 
 function _chit_status() {
@@ -39,11 +47,16 @@ function _chit_stop() {
     exit 1
   fi
 
+  if [[ "${SCRIPT_RUNNER}" != "${CHIT_PID_OWNER}" ]]; then
+    echo "ERROR: A different user has started the application, you must kill manually."
+    exit 1
+  fi
+
   _kill_the_chit
   _chit_status
 
   if [[ "${CHIT_RUNNING}" != "NO" ]]; then
-    echo "Something went wrong and the process is still running"
+    echo "ERROR: Something went wrong and the process is still running"
     _display_running_chit
     exit 1
   else
@@ -51,7 +64,7 @@ function _chit_stop() {
   fi
 }
 
-function _chit_how_to() {
+function _chit_help() {
   echo -e "
 
   This process supports 3 options:
@@ -75,7 +88,7 @@ function _display_running_chit() {
 
 function _get_chit_jar() {
   # shellcheck disable=SC2012
-  CHIT_JAR=$(ls -tr chitstop-*.jar 2>/dev/null | tail -1)
+  CHIT_JAR=$(ls -tr "${PWD}/chitstop-*.jar" 2>/dev/null | tail -1)
   local chitJarCount
   chitJarCount=$(echo "${CHIT_JAR}" | wc -w)
 
@@ -89,7 +102,7 @@ function _get_chit_jar() {
 }
 
 function _get_chit_pid() {
-  CHIT_PID=$(pgrep -f 'java -jar chitstop-.*')
+  CHIT_PID=$(pgrep -f 'java -jar .*chitstop-.*')
   local chitPidCount
   chitPidCount=$(echo "${CHIT_PID}" | wc -w)
 
@@ -100,6 +113,7 @@ function _get_chit_pid() {
     CHIT_RUNNING="ERROR"
     CHIT_STATUS_MSG="Multiple instances of the chitstop application are running."
   else
+    CHIT_PID_OWNER=$(ps -o user= -p "${CHIT_PID}")
     CHIT_STATUS_MSG="Found a single instance of the chitstop application running."
     CHIT_RUNNING="YES"
   fi
@@ -111,6 +125,24 @@ function _kill_the_chit() {
   sleep 2
 }
 
+## Handle input args ##
+shopt -s nocasematch
+while [[ $# -gt 0 ]]; do
+  myArg="${1}"
+  case "${myArg}" in
+    start|stop|status)
+      EXEC_OPTION=${myArg^^}
+      ;;
+    --*=*)
+      CHIT_JAR_ARGS+=" ${myArg}"
+      ;;
+    -help|-h|*)
+      EXEC_OPTION="HELP"
+      ;;
+  esac
+  shift
+done
+
 ## RUN ##
 if [[ "${EXEC_OPTION}" == "START" ]]; then
   _chit_start
@@ -118,6 +150,6 @@ elif [[ "${EXEC_OPTION}" == "STATUS" ]]; then
   _chit_status
 elif [[ "${EXEC_OPTION}" == "STOP" ]]; then
   _chit_stop
-else
-  _chit_how_to
+elif [[ "${EXEC_OPTION}" == "HELP" ]]; then
+  _chit_help
 fi
