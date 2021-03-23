@@ -7,29 +7,49 @@
  */
 package com.synopsys.integration.chitstop.model;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.synopsys.integration.chitstop.storage.ApiTokenStorage;
 
 @Component
 public class ApiTokens {
-    public static final List<String> VM_KEYS = List.of("bdstarlabs", "relcandi", "hub01", "hub02", "hub03", "hub04", "swarm01", "auto03");
-
     public static final String DEFAULT_USERNAME = "sysadmin";
 
-    private Map<String, Map<String, ApiToken>> apiTokenStore = new HashMap<>();
+    public static final Function<String, Predicate<ApiToken>> BY_COMMON = (vm) -> (apiToken) -> apiToken.getVmKey().equals(ApiToken.parseVmKey(vm)) && apiToken.getScope().equals(ApiTokenScope.READ_AND_WRITE);
+    public static final Function<String, Predicate<ApiToken>> BY_TOKEN_NAME = (tokenName) -> (apiToken) -> apiToken.getTokenName().equals(tokenName);
+    public static final Function<String, Predicate<ApiToken>> BY_USERNAME = (username) -> (apiToken) -> apiToken.getUsername().equals(username);
 
-    public ApiTokens() {
-        for (String vmKey : VM_KEYS) {
-            apiTokenStore.put(vmKey, new HashMap<>());
-        }
+    private final ApiTokenStorage apiTokenStorage;
+
+    @Autowired
+    public ApiTokens(ApiTokenStorage apiTokenStorage) {
+        this.apiTokenStorage = apiTokenStorage;
     }
 
     public void addToken(ApiToken apiToken) {
-        apiTokenStore.get(apiToken.getVmKey()).put(apiToken.getName(), apiToken);
+        apiTokenStorage.addApiToken(apiToken);
+    }
+
+    public ApiToken retrieve(String vm, String username, String name) {
+        if (StringUtils.isNotBlank(name)) {
+            return findByVMAndTokenName(vm, name);
+        } else if (StringUtils.isNotBlank(username)) {
+            return findByVMAndUsername(vm, username);
+        } else {
+            return findByVM(vm);
+        }
+    }
+
+    public String retrievePure(String vm, String username, String name) {
+        return Optional.ofNullable(retrieve(vm, username, name))
+                   .map(ApiToken::getToken)
+                   .orElse("");
     }
 
     /**
@@ -43,19 +63,21 @@ public class ApiTokens {
     }
 
     public ApiToken findByVMAndUsername(String vm, String username) {
-        String lookupKey = ApiToken.parseVmKey(vm);
-        Collection<ApiToken> apiTokens = apiTokenStore.get(lookupKey).values();
-        return apiTokens
+        return apiTokenStorage.retrieveApiTokens()
                    .stream()
-                   .filter(apiToken -> username.equals(apiToken.getUsername()))
-                   .filter(apiToken -> ApiTokenScope.READ_AND_WRITE.equals(apiToken.getScope()))
+                   .filter(BY_COMMON.apply(vm))
+                   .filter(BY_USERNAME.apply(username))
                    .findFirst()
                    .orElse(null);
     }
 
     public ApiToken findByVMAndTokenName(String vm, String tokenName) {
-        String lookupKey = ApiToken.parseVmKey(vm);
-        return apiTokenStore.get(lookupKey).get(tokenName);
+        return apiTokenStorage.retrieveApiTokens()
+                   .stream()
+                   .filter(BY_COMMON.apply(vm))
+                   .filter(BY_TOKEN_NAME.apply(tokenName))
+                   .findFirst()
+                   .orElse(null);
     }
 
 }

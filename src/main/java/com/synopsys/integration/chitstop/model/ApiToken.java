@@ -7,10 +7,12 @@
  */
 package com.synopsys.integration.chitstop.model;
 
-public class ApiToken {
+import com.synopsys.integration.util.Stringable;
+
+public class ApiToken extends Stringable {
     private String token;
     private String vmKey;
-    private String name;
+    private String tokenName;
     private String description;
     private ApiTokenScope scope;
     private String username;
@@ -25,10 +27,10 @@ public class ApiToken {
     public ApiToken() {
     }
 
-    public ApiToken(String token, String vmKey, String name, String description, ApiTokenScope scope, String username) {
+    public ApiToken(String token, String vmKey, String tokenName, String description, ApiTokenScope scope, String username) {
         this.token = token;
         this.vmKey = parseVmKey(vmKey);
-        this.name = name;
+        this.tokenName = tokenName;
         this.description = description;
         this.scope = scope;
         this.username = username;
@@ -50,12 +52,12 @@ public class ApiToken {
         this.vmKey = vmKey;
     }
 
-    public String getName() {
-        return name;
+    public String getTokenName() {
+        return tokenName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
     }
 
     public String getDescription() {
