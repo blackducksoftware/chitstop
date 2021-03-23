@@ -7,6 +7,7 @@ CHIT_PID=""
 CHIT_PID_OWNER=""
 CHIT_RUNNING=""
 CHIT_STATUS_MSG=""
+LOG_DIR="/srv/the_chit/logs"
 SCRIPT_RUNNER=$(whoami)
 
 function _chit_start() {
@@ -23,7 +24,7 @@ function _chit_start() {
 
   fullChitCmd="nohup java -jar ${CHIT_JAR}${CHIT_JAR_ARGS}"
   loggingDate=$(date +%s)
-  logFile="/srv/the_chit/chit_log.${loggingDate}"
+  logFile="${LOG_DIR}/chit_log.${loggingDate}"
 
   echo "Starting the chit: ${fullChitCmd}"
   echo "Logs will be sent to: ${logFile}"
@@ -77,6 +78,10 @@ function _chit_help() {
   \t* If the script finds more than 1 jar, it picks the newest based on last update date.
   \t* If no process is found to kill, nothing happens.
   "
+}
+
+function _clean_chit_logs() {
+  find "${LOG_DIR}" -type f -mtime +14 -delete
 }
 
 function _display_running_chit() {
