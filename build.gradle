@@ -8,7 +8,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-version = '0.1.0'
+version = '0.1.1-SNAPSHOT'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
 ext {
     javaSourceCompatibility = JavaVersion.VERSION_11
