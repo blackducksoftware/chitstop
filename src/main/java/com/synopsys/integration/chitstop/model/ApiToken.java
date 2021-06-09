@@ -10,12 +10,12 @@ package com.synopsys.integration.chitstop.model;
 import com.synopsys.integration.util.Stringable;
 
 public class ApiToken extends Stringable {
-    private String token;
     private String vmKey;
+    private String username;
+    private String token;
     private String tokenName;
     private String description;
     private ApiTokenScope scope;
-    private String username;
 
     public static String parseVmKey(String vmKey) {
         return vmKey
@@ -24,6 +24,7 @@ public class ApiToken extends Stringable {
                    .replace(".dc1.lan", "");
     }
 
+    // ejk - Needed because of jackson/Spring serialization
     public ApiToken() {
     }
 
@@ -36,20 +37,28 @@ public class ApiToken extends Stringable {
         this.username = username;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getVmKey() {
         return vmKey;
     }
 
     public void setVmKey(String vmKey) {
         this.vmKey = vmKey;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getTokenName() {
@@ -74,14 +83,6 @@ public class ApiToken extends Stringable {
 
     public void setScope(ApiTokenScope scope) {
         this.scope = scope;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }

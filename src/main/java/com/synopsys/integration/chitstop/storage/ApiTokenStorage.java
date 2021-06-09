@@ -14,12 +14,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchService;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +40,26 @@ import com.synopsys.integration.chitstop.model.ApiToken;
 @Repository
 public class ApiTokenStorage {
     public static final String TOKENS_FILENAME = "tokens.json";
+    public static final Function<ApiToken, Predicate<ApiToken>> MATCHING_TOKEN = (thisApiToken) -> (thatApiToken) -> {
+        boolean[] token = new boolean[] {
+            thisApiToken.getVmKey().equals(thatApiToken.getVmKey()),
+            thisApiToken.getToken().equals(thatApiToken.getToken())
+        };
+        if (BooleanUtils.and(token)) {
+            return true;
+        }
+
+        boolean[] usernameAndName = new boolean[] {
+            thisApiToken.getVmKey().equals(thatApiToken.getVmKey()),
+            thisApiToken.getUsername().equals(thatApiToken.getUsername()),
+            thisApiToken.getTokenName().equals(thatApiToken.getTokenName())
+        };
+        if (BooleanUtils.and(usernameAndName)) {
+            return true;
+        }
+
+        return false;
+    };
 
     private final Logger logger = LoggerFactory.getLogger(ApiTokenStorage.class);
 
@@ -71,17 +97,19 @@ public class ApiTokenStorage {
         executorService.submit(new ApiTokenWatcher(storedTokensPath, watchService, this, gameOver));
     }
 
-    public void addApiToken(ApiToken apiToken) {
-        List<ApiToken> currentTokens = new LinkedList<>(apiTokens);
-        currentTokens.add(apiToken);
+    public void storeApiToken(ApiToken apiToken) {
+        findExistingToken(apiToken)
+            .ifPresentOrElse(
+                (existing) -> updateToken(existing, apiToken),
+                () -> insertToken(apiToken)
+            );
+
         try {
-            String json = objectMapper.writeValueAsString(currentTokens);
+            String json = objectMapper.writeValueAsString(apiTokens);
             Files.writeString(tokensJsonPath, json, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            gameOver.endIt(logger, e, String.format("Count not add the new api token: %s", apiToken));
+            gameOver.endIt(logger, e, String.format("Could not store the api token: %s", apiToken));
         }
-
-        loadApiTokens();
     }
 
     public List<ApiToken> retrieveApiTokens() {
@@ -94,6 +122,31 @@ public class ApiTokenStorage {
             apiTokens = objectMapper.readValue(json, new TypeReference<>() {});
         } catch (IOException e) {
             logger.error(String.format("Api tokens could not be loaded from the provided path: %s", tokensJsonPath.toString()), e);
+        }
+    }
+
+    private Optional<ApiToken> findExistingToken(ApiToken apiToken) {
+        return apiTokens
+                   .stream()
+                   .filter(MATCHING_TOKEN.apply(apiToken))
+                   .findFirst();
+    }
+
+    private void insertToken(ApiToken apiToken) {
+        apiTokens.add(apiToken);
+    }
+
+    private void updateToken(ApiToken apiToken, ApiToken newValues) {
+        setProperty(apiToken::setToken, newValues::getToken);
+        setProperty(apiToken::setTokenName, newValues::getTokenName);
+        setProperty(apiToken::setDescription, newValues::getDescription);
+        setProperty(apiToken::setScope, newValues::getScope);
+    }
+
+    private <T extends Object> void setProperty(Consumer<T> setter, Supplier<T> getter) {
+        T newValue = getter.get();
+        if (ObjectUtils.isNotEmpty(newValue)) {
+            setter.accept(newValue);
         }
     }
 
