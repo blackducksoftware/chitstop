@@ -32,8 +32,8 @@ public class ApiTokens {
         this.apiTokenStorage = apiTokenStorage;
     }
 
-    public void addToken(ApiToken apiToken) {
-        apiTokenStorage.addApiToken(apiToken);
+    public void storeToken(ApiToken apiToken) {
+        apiTokenStorage.storeApiToken(apiToken);
     }
 
     public ApiToken retrieve(String vm, String username, String name) {

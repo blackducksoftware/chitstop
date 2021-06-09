@@ -37,7 +37,7 @@ public class ApiTokenController {
 
     @PostMapping("/token")
     public void store(@RequestBody ApiToken apiToken) {
-        apiTokens.addToken(apiToken);
+        apiTokens.storeToken(apiToken);
     }
 
     @GetMapping("/puretoken")

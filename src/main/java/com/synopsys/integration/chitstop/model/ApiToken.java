@@ -10,12 +10,13 @@ package com.synopsys.integration.chitstop.model;
 import com.synopsys.integration.util.Stringable;
 
 public class ApiToken extends Stringable {
+    private final String vmKey;
+    private final String username;
+
     private String token;
-    private String vmKey;
     private String tokenName;
     private String description;
     private ApiTokenScope scope;
-    private String username;
 
     public static String parseVmKey(String vmKey) {
         return vmKey
@@ -24,7 +25,9 @@ public class ApiToken extends Stringable {
                    .replace(".dc1.lan", "");
     }
 
-    public ApiToken() {
+    public ApiToken(String vmKey, String username) {
+        this.vmKey = vmKey;
+        this.username = username;
     }
 
     public ApiToken(String token, String vmKey, String tokenName, String description, ApiTokenScope scope, String username) {
@@ -46,10 +49,6 @@ public class ApiToken extends Stringable {
 
     public String getVmKey() {
         return vmKey;
-    }
-
-    public void setVmKey(String vmKey) {
-        this.vmKey = vmKey;
     }
 
     public String getTokenName() {
@@ -78,10 +77,6 @@ public class ApiToken extends Stringable {
 
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }
