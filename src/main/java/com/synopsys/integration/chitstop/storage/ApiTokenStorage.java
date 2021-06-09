@@ -41,19 +41,23 @@ import com.synopsys.integration.chitstop.model.ApiToken;
 public class ApiTokenStorage {
     public static final String TOKENS_FILENAME = "tokens.json";
     public static final Function<ApiToken, Predicate<ApiToken>> MATCHING_TOKEN = (thisApiToken) -> (thatApiToken) -> {
-        if (thisApiToken.getVmKey().equals(thatApiToken.getVmKey())) {
-            if (thisApiToken.getToken().equals(thatApiToken.getToken())) {
-                return true;
-            }
-
-            boolean[] usernameAndName = new boolean[] {
-                thisApiToken.getUsername().equals(thatApiToken.getUsername()),
-                thisApiToken.getTokenName().equals(thatApiToken.getTokenName())
-            };
-            if (BooleanUtils.and(usernameAndName)) {
-                return true;
-            }
+        boolean[] token = new boolean[] {
+            thisApiToken.getVmKey().equals(thatApiToken.getVmKey()),
+            thisApiToken.getToken().equals(thatApiToken.getToken())
+        };
+        if (BooleanUtils.and(token)) {
+            return true;
         }
+
+        boolean[] usernameAndName = new boolean[] {
+            thisApiToken.getVmKey().equals(thatApiToken.getVmKey()),
+            thisApiToken.getUsername().equals(thatApiToken.getUsername()),
+            thisApiToken.getTokenName().equals(thatApiToken.getTokenName())
+        };
+        if (BooleanUtils.and(usernameAndName)) {
+            return true;
+        }
+
         return false;
     };
 
