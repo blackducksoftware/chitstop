@@ -42,7 +42,7 @@ public class ApiToken extends Stringable {
     }
 
     public void setVmKey(String vmKey) {
-        this.vmKey = vmKey;
+        this.vmKey = ApiToken.parseVmKey(vmKey);
     }
 
     public String getUsername() {
