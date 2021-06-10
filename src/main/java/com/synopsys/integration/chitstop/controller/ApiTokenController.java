@@ -9,7 +9,7 @@ package com.synopsys.integration.chitstop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +35,7 @@ public class ApiTokenController {
         return apiTokens.retrieve(vm, username, tokenName);
     }
 
-    @PostMapping("/token")
+    @PutMapping("/token")
     public void store(@RequestBody ApiToken apiToken) {
         apiTokens.storeToken(apiToken);
     }

@@ -4,11 +4,10 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.4.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.5.0'
 }
 
-version = '0.1.0'
+version = '0.2.0'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
 ext {
     javaSourceCompatibility = JavaVersion.VERSION_11
@@ -16,9 +15,10 @@ ext {
 }
 
 apply plugin: 'com.synopsys.integration.solution'
+apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    implementation 'com.synopsys.integration:integration-common:24.2.1'
+    implementation 'com.synopsys.integration:integration-common:25.0.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
