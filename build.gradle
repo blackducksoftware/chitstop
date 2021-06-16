@@ -7,7 +7,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.0'
 }
 
-version = '0.2.1'
+version = '0.3.0'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
 ext {
     javaSourceCompatibility = JavaVersion.VERSION_11
