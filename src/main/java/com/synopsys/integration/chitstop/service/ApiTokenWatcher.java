@@ -5,7 +5,7 @@
  *
  * Use subject to the terms and conditions of the Synopsys End User Software License and Maintenance Agreement. All rights reserved worldwide.
  */
-package com.synopsys.integration.chitstop.storage;
+package com.synopsys.integration.chitstop.service;
 
 import java.nio.file.Path;
 import java.nio.file.StandardWatchEventKinds;
@@ -21,13 +21,13 @@ import com.synopsys.integration.chitstop.exception.GameOver;
 public class ApiTokenWatcher implements Runnable {
     private final Logger logger = LoggerFactory.getLogger(ApiTokenWatcher.class);
 
-    private final Path watchedPath;
+    private final String filename;
     private final WatchService watchService;
     private final ApiTokenStorage apiTokenStorage;
     private final GameOver gameOver;
 
-    public ApiTokenWatcher(Path watchedPath, WatchService watchService, ApiTokenStorage apiTokenStorage, GameOver gameOver) {
-        this.watchedPath = watchedPath;
+    public ApiTokenWatcher(String filename, WatchService watchService, ApiTokenStorage apiTokenStorage, GameOver gameOver) {
+        this.filename = filename;
         this.watchService = watchService;
         this.apiTokenStorage = apiTokenStorage;
         this.gameOver = gameOver;
@@ -35,6 +35,8 @@ public class ApiTokenWatcher implements Runnable {
 
     @Override
     public void run() {
+        // ejk - intended infinite loop
+        // noinspection InfiniteLoopStatement
         while (true) {
             WatchKey watchKey = null;
             try {
@@ -46,11 +48,10 @@ public class ApiTokenWatcher implements Runnable {
             logger.info("A watchkey is now available.");
             for (WatchEvent<?> event : watchKey.pollEvents()) {
                 if (StandardWatchEventKinds.ENTRY_MODIFY.equals(event.kind())) {
-                    //todo try to use a type token
                     WatchEvent<Path> pathWatchEvent = (WatchEvent<Path>) event;
                     Path modifiedPath = pathWatchEvent.context();
-                    if (ApiTokenStorage.TOKENS_FILENAME.equals(modifiedPath.toString())) {
-                        logger.info(String.format("%s modified, loading changes.", modifiedPath.toString()));
+                    if (filename.equals(modifiedPath.toString())) {
+                        logger.info(String.format("%s modified, loading changes.", modifiedPath));
                         apiTokenStorage.loadApiTokens();
                     }
                 }

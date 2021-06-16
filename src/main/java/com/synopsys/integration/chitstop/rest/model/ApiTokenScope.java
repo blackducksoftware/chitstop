@@ -5,10 +5,10 @@
  *
  * Use subject to the terms and conditions of the Synopsys End User Software License and Maintenance Agreement. All rights reserved worldwide.
  */
-package com.synopsys.integration.chitstop.model;
+package com.synopsys.integration.chitstop.rest.model;
 
 public enum ApiTokenScope {
-    READ,
-    READ_AND_WRITE
+    READ_AND_WRITE,
+    READ
 
 }

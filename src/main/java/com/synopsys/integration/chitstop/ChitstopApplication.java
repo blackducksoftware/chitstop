@@ -18,13 +18,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.synopsys.integration.chitstop.exception.GameOverException;
+import com.synopsys.integration.chitstop.rest.controller.StringToVmKeyConverter;
+import com.synopsys.integration.chitstop.rest.model.VmKey;
+import com.synopsys.integration.chitstop.rest.model.VmKeyTypeAdapter;
 
 @SpringBootApplication
-public class ChitstopApplication {
+public class ChitstopApplication implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(ChitstopApplication.class);
 
     public static void main(String[] args) {
@@ -35,15 +40,22 @@ public class ChitstopApplication {
         }
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToVmKeyConverter());
+    }
+
     @Bean
     public WatchService watchService() throws IOException {
         return FileSystems.getDefault().newWatchService();
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-                   .configure(SerializationFeature.INDENT_OUTPUT, true);
+    public Gson gson() {
+        return new GsonBuilder()
+                   .setPrettyPrinting()
+                   .registerTypeAdapter(VmKey.class, new VmKeyTypeAdapter())
+                   .create();
     }
 
     @Bean
