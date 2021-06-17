@@ -126,6 +126,7 @@ public class ApiTokenStorage {
     private void saveTokensFile() {
         try {
             String json = gson.toJson(apiTokens);
+            System.out.println("json" + json);
             Files.writeString(tokensJsonPath, json, StandardCharsets.UTF_8);
         } catch (IOException e) {
             gameOver.endIt(logger, e, String.format("Could not save the tokens file."));

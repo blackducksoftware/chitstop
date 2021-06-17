@@ -7,7 +7,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.0'
 }
 
-version = '0.3.0'
+version = '0.4.0-SNAPSHOT'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
 ext {
     javaSourceCompatibility = JavaVersion.VERSION_11
@@ -18,15 +18,14 @@ apply plugin: 'com.synopsys.integration.solution'
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    implementation('com.synopsys.integration:integration-common:25.0.0') {
-        exclude group: 'com.flipkart.zjsonpatch', module: 'zjsonpatch'
-    }
+    implementation 'com.synopsys.integration:integration-common:25.0.0'
 
-    implementation('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-json'
-    }
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'javax.validation:validation-api:2.0.1.Final'
+
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

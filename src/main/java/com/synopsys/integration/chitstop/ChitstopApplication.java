@@ -28,6 +28,8 @@ import com.synopsys.integration.chitstop.rest.controller.StringToVmKeyConverter;
 import com.synopsys.integration.chitstop.rest.model.VmKey;
 import com.synopsys.integration.chitstop.rest.model.VmKeyTypeAdapter;
 
+import springfox.documentation.spring.web.json.Json;
+
 @SpringBootApplication
 public class ChitstopApplication implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(ChitstopApplication.class);
@@ -54,7 +56,9 @@ public class ChitstopApplication implements WebMvcConfigurer {
     public Gson gson() {
         return new GsonBuilder()
                    .setPrettyPrinting()
+                   .disableHtmlEscaping()
                    .registerTypeAdapter(VmKey.class, new VmKeyTypeAdapter())
+                   .registerTypeAdapter(Json.class, new SpringfoxJsonToGsonAdapter())
                    .create();
     }
 
