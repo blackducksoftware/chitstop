@@ -81,7 +81,6 @@ public class ApiTokenController {
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public void store(@RequestBody ApiToken apiToken) {
-        System.out.println("token: " + apiToken.getToken());
         apiTokens.storeToken(apiToken);
     }
 
