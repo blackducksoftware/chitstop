@@ -27,6 +27,16 @@ import com.synopsys.integration.chitstop.exception.GameOverException;
 import com.synopsys.integration.chitstop.rest.controller.StringToVmKeyConverter;
 import com.synopsys.integration.chitstop.rest.model.VmKey;
 import com.synopsys.integration.chitstop.rest.model.VmKeyTypeAdapter;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.LatestVersionFinder;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.MavenLatestVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetLatestVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.PrefixSuffixLatestVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.SemverSupport;
+import com.synopsys.integration.log.IntLogger;
+import com.synopsys.integration.log.Slf4jIntLogger;
+import com.synopsys.integration.rest.client.IntHttpClient;
+import com.synopsys.integration.rest.proxy.ProxyInfo;
 
 import springfox.documentation.spring.web.json.Json;
 
@@ -53,6 +63,16 @@ public class ChitstopApplication implements WebMvcConfigurer {
     }
 
     @Bean
+    public IntLogger logger() {
+        return new Slf4jIntLogger(ChitstopApplication.logger);
+    }
+
+    @Bean
+    public IntHttpClient httpClient() {
+        return new IntHttpClient(logger(), gson(), 120, false, ProxyInfo.NO_PROXY_INFO);
+    }
+
+    @Bean
     public Gson gson() {
         return new GsonBuilder()
                    .setPrettyPrinting()
@@ -63,12 +83,47 @@ public class ChitstopApplication implements WebMvcConfigurer {
     }
 
     @Bean
+    public ArtifactoryClient artifactoryClient() {
+        return new ArtifactoryClient(logger(), httpClient(), gson());
+    }
+
+    @Bean
     /*
     ejk - at the moment, we only need one thread for the ApiTokenWatcher, if we
     need more, we'll need to use a different ExecutorService implementation
      */
     public ExecutorService executorService() {
         return Executors.newSingleThreadExecutor();
+    }
+
+    @Bean
+    public SemverSupport semverSupport() {
+        return new SemverSupport();
+    }
+
+    @Bean
+    public MavenLatestVersionFilter mavenLatestVersionFilter() {
+        return new MavenLatestVersionFilter(semverSupport());
+    }
+
+    @Bean
+    public NugetLatestVersionFilter nugetLatestVersionFilter() {
+        return new NugetLatestVersionFilter(semverSupport());
+    }
+
+    @Bean
+    public LatestVersionFinder detectFontBundleLatestVersionFinder() {
+        return new LatestVersionFinder(artifactoryClient(), new PrefixSuffixLatestVersionFilter(semverSupport(), "risk-report-fonts-", ".zip"));
+    }
+
+    @Bean
+    public LatestVersionFinder mavenLatestVersionFinder() {
+        return new LatestVersionFinder(artifactoryClient(), mavenLatestVersionFilter());
+    }
+
+    @Bean
+    public LatestVersionFinder nugetLatestVersionFinder() {
+        return new LatestVersionFinder(artifactoryClient(), nugetLatestVersionFilter());
     }
 
 }
