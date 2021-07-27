@@ -10,6 +10,8 @@ package com.synopsys.integration.chitstop;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.WatchService;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,6 +22,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.google.gson.Gson;
@@ -50,6 +53,7 @@ import springfox.documentation.spring.web.json.Json;
 @SpringBootApplication
 public class ChitstopApplication implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(ChitstopApplication.class);
+    private static final String ALPHANUMERIC_WITH_HYPHEN = "[\\w\\-]+";
 
     public static void main(String[] args) {
         try {
@@ -68,6 +72,31 @@ public class ChitstopApplication implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToVmKeyConverter());
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        ReactViewControllerSupport reactViewControllerSupport = new ReactViewControllerSupport(registry);
+
+        List<String> viewDataPairs = new LinkedList<>();
+        // the root needs to go to index.html
+        viewDataPairs.add("/");
+
+        // anything that looks like:
+        // /alphaNumericWordWithHyphen
+        // which should go to index.html since all /api endpoints will have more
+        // than a single level
+        viewDataPairs.add(String.format("/{onlyNeededToEnableRegex:%s}", ALPHANUMERIC_WITH_HYPHEN));
+
+        // anything that looks like:
+        // /alphaNumericWordWithHyphen/alphaNumericWordWithHyphen/...
+        // needs to go to index.html
+        // but anything that starts with:
+        // /api/whocares...
+        // needs to NOT go to index.html
+        viewDataPairs.add("/{onlyNeededToEnableRegex:^(?!api$).*$}/**/{onlyNeededToEnableRegex2:[\\w\\-]+}");
+
+        reactViewControllerSupport.add(viewDataPairs);
     }
 
     @Bean

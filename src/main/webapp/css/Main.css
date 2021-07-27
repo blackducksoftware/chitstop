@@ -1,5 +1,35 @@
 #main {
-    background: #eff;
-    margin: 0 auto;
-    width: 800px;
+    background: rgb(40, 44, 52);
+    color: rgb(255, 255, 255);
+    padding: 2px;
+}
+
+#logo-image {
+    width: 455px;
+    height: 199px;
+    float: left;
+    margin: 0 15px 0 0;
+}
+
+#left-navigation {
+    margin-top: 199px;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    padding-top: 20px;
+}
+
+#content {
+    margin-left: 200px;
+    padding: 0px 10px;
+}
+
+#top-links {
+    background-color: #55565A;
+    color: #DEEBFF;
+    padding-top: 170px;
+}
+
+#footer {
+
 }
