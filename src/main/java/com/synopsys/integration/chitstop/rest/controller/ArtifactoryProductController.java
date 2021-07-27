@@ -7,6 +7,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.synopsys.integration.chitstop.rest.model.ArtifactoryProductDetails;
 import com.synopsys.integration.chitstop.service.ArtifactoryProductsService;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactResult;
 import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
 
 @RestController
 @RequestMapping("/api/artifactory")
@@ -38,14 +40,32 @@ public class ArtifactoryProductController {
 
     @GetMapping(
         value = "/products/latest",
-        produces = MediaType.TEXT_PLAIN_VALUE
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    public String retrieve(@RequestParam(value = "name") String productName) throws IntegrationException {
-        return artifactoryProductsService
-                   .getLatestArtifactUrl(productName)
-                   .map(HttpUrl::string)
-                   .orElse("Not Found");
+    public ArtifactResult retrieve(
+        @RequestParam(value = "name") String productName,
+        @RequestParam(value = "majorVersion", required = false) Integer majorVersion
+    ) throws IntegrationException {
+        if (null == majorVersion) {
+            return artifactoryProductsService
+                       .getLatestVersionArtifactResult(productName)
+                       .orElse(ArtifactResult.NOT_FOUND);
+        } else {
+            return artifactoryProductsService
+                       .getLatestWithinMajorVersionArtifactResult(productName, majorVersion)
+                       .orElse(ArtifactResult.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(
+        value = "/products/latest",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public Map<ArtifactoryProductDetails, List<Pair<String, String>>> updateArtifact(@RequestBody ArtifactResult artifactResult) throws IntegrationException {
+        artifactoryProductsService.updateProperty(artifactResult);
+        return retrieveArtifactoryProperties();
     }
 
     @GetMapping(

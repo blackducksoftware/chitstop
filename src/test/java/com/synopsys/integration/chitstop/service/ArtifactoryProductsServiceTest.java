@@ -2,35 +2,75 @@ package com.synopsys.integration.chitstop.service;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import com.google.gson.Gson;
 import com.synopsys.integration.chitstop.ChitstopApplication;
+import com.synopsys.integration.chitstop.rest.model.ArtifactoryProductDetails;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactResult;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProduct;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProducts;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProductsFactory;
+import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
 import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.NestedArtifactFinder;
-import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.RepoArtifactFinder;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
 import com.synopsys.integration.exception.IntegrationException;
+import com.synopsys.integration.log.IntLogger;
 import com.synopsys.integration.rest.HttpUrl;
+import com.synopsys.integration.rest.client.IntHttpClient;
 
 public class ArtifactoryProductsServiceTest {
     @Test
     public void testArtifactory() throws IntegrationException {
         ChitstopApplication chitstopApplication = new ChitstopApplication();
         ArtifactoryClient artifactoryClient = chitstopApplication.artifactoryClient();
-        ArtifactoryProducts artifactoryProducts = new ArtifactoryProducts(
-            chitstopApplication.detectFontBundleLatestVersionFinder(),
-            chitstopApplication.mavenLatestVersionFinder(),
-            chitstopApplication.nugetLatestVersionFinder(),
-            new RepoArtifactFinder(artifactoryClient),
-            new NestedArtifactFinder(artifactoryClient)
-        );
+        ArtifactoryProductsFactory artifactoryProductsFactory = chitstopApplication.artifactoryProductsFactory();
+        ArtifactoryProducts artifactoryProducts = artifactoryProductsFactory.createDefault();
 
         ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient);
-        Optional<HttpUrl> url = artifactoryProductsService.getLatestArtifactUrl("integrationNugetInspector");
-        assertTrue(url.isPresent());
-        System.out.println(url.get().string());
+        Optional<ArtifactResult> artifactResult = artifactoryProductsService.getLatestVersionArtifactResult("integrationNugetInspector");
+        assertTrue(artifactResult.isPresent());
+        System.out.println(artifactResult.get());
+    }
+
+    @Test
+    public void testCreatingProperty() throws IntegrationException {
+        ChitstopApplication chitstopApplication = new ChitstopApplication();
+
+        IntLogger logger = chitstopApplication.logger();
+        IntHttpClient httpClient = chitstopApplication.httpClient();
+        Gson gson = chitstopApplication.gson();
+        HttpUrl internalArtifactory = new HttpUrl(ArtifactoryClient.INTERNAL_ARTIFACTORY);
+        ArtifactoryClient artifactoryClient = new ArtifactoryClient(logger, httpClient, gson, internalArtifactory, internalArtifactory);
+        VersionFinder mavenVersionFinder = new VersionFinder(artifactoryClient, chitstopApplication.mavenLatestVersionFilter());
+        ArtifactFinder nestedArtifactFinder = new NestedArtifactFinder(artifactoryClient);
+
+        ArtifactoryProductDetails details = new ArtifactoryProductDetails("detectTest", "bds-integrations-test", "com/synopsys/integration/synopsys-detect", "com/synopsys/integration/synopsys-detect", "DETECT_TEST", ".jar");
+        ArtifactoryProduct detectTest = new ArtifactoryProduct(details, mavenVersionFinder, nestedArtifactFinder);
+        ArtifactoryProducts artifactoryProducts = new ArtifactoryProducts(List.of(detectTest));
+
+        ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient);
+        ArtifactResult artifactResult = artifactoryProductsService.getLatestVersionArtifactResult("detectTest").get();
+        ArtifactResult artifactResult6 = artifactoryProductsService.getLatestWithinMajorVersionArtifactResult("detectTest", 6).get();
+
+        printProperties(artifactoryProductsService, "detectTest");
+
+        artifactoryProductsService.updateProperty(artifactResult);
+        artifactoryProductsService.updateProperty(artifactResult6);
+
+        printProperties(artifactoryProductsService, "detectTest");
+    }
+
+    private void printProperties(ArtifactoryProductsService artifactoryProductsService, String productName) throws IntegrationException {
+        artifactoryProductsService
+            .findProperties(productName)
+            .stream()
+            .map(pair -> String.format("%s = %s", pair.getLeft(), pair.getRight()))
+            .forEach(System.out::println);
     }
 
 }

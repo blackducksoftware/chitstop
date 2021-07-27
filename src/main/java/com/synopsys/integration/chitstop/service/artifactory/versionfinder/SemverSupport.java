@@ -29,21 +29,34 @@ public class SemverSupport {
      */
     public List<Semver> filterVersions(List<String> versions) {
         return filter(versions)
+                   .sorted()
                    .collect(Collectors.toList());
     }
 
-    public Optional<String> latestVersion(List<String> versionStrings) {
-        return filter(versionStrings)
-                   .reduce((ignored, second) -> second)
-                   .map(Semver::getValue);
+    public Optional<Semver> latestVersion(List<String> versionStrings) {
+        Stream<Semver> stream =
+            filter(versionStrings);
+        return sortAndGetLast(stream);
+    }
+
+    public Optional<Semver> latestWithinMajorVersion(List<String> versionStrings, int majorVersion) {
+        Stream<Semver> stream =
+            filter(versionStrings)
+                .filter(semver -> majorVersion == semver.getMajor());
+        return sortAndGetLast(stream);
+    }
+
+    private Optional<Semver> sortAndGetLast(Stream<Semver> stream) {
+        return stream
+                   .sorted()
+                   .reduce((ignored, second) -> second);
     }
 
     private Stream<Semver> filter(List<String> versions) {
         return versions
                    .stream()
                    .map(this::fromStringSafely)
-                   .flatMap(Optional::stream)
-                   .sorted();
+                   .flatMap(Optional::stream);
     }
 
 }

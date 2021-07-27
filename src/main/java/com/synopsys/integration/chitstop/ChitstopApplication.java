@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +29,19 @@ import com.synopsys.integration.chitstop.rest.controller.StringToVmKeyConverter;
 import com.synopsys.integration.chitstop.rest.model.VmKey;
 import com.synopsys.integration.chitstop.rest.model.VmKeyTypeAdapter;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.LatestVersionFinder;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.MavenLatestVersionFilter;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetLatestVersionFilter;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.PrefixSuffixLatestVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProducts;
+import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProductsFactory;
+import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.NestedArtifactFinder;
+import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.RepoArtifactFinder;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.MavenVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.PrefixSuffixVersionFilter;
 import com.synopsys.integration.chitstop.service.artifactory.versionfinder.SemverSupport;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
+import com.synopsys.integration.exception.IntegrationException;
 import com.synopsys.integration.log.IntLogger;
 import com.synopsys.integration.log.Slf4jIntLogger;
+import com.synopsys.integration.rest.HttpUrl;
 import com.synopsys.integration.rest.client.IntHttpClient;
 import com.synopsys.integration.rest.proxy.ProxyInfo;
 
@@ -51,6 +58,12 @@ public class ChitstopApplication implements WebMvcConfigurer {
             logger.error("An unrecoverable error occurred.", e);
         }
     }
+
+    @Value("${read.only.artifactory.url}")
+    private String readOnlyArtifactoryUrl;
+
+    @Value("${write.artifactory.url}")
+    private String writeArtifactoryUrl;
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
@@ -83,8 +96,10 @@ public class ChitstopApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public ArtifactoryClient artifactoryClient() {
-        return new ArtifactoryClient(logger(), httpClient(), gson());
+    public ArtifactoryClient artifactoryClient() throws IntegrationException {
+        HttpUrl readOnlyArtifactory = new HttpUrl(readOnlyArtifactoryUrl);
+        HttpUrl writeArtifactory = new HttpUrl(writeArtifactoryUrl);
+        return new ArtifactoryClient(logger(), httpClient(), gson(), readOnlyArtifactory, writeArtifactory);
     }
 
     @Bean
@@ -102,28 +117,48 @@ public class ChitstopApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public MavenLatestVersionFilter mavenLatestVersionFilter() {
-        return new MavenLatestVersionFilter(semverSupport());
+    public MavenVersionFilter mavenLatestVersionFilter() {
+        return new MavenVersionFilter(semverSupport());
     }
 
     @Bean
-    public NugetLatestVersionFilter nugetLatestVersionFilter() {
-        return new NugetLatestVersionFilter(semverSupport());
+    public NugetVersionFilter nugetLatestVersionFilter() {
+        return new NugetVersionFilter(semverSupport());
     }
 
     @Bean
-    public LatestVersionFinder detectFontBundleLatestVersionFinder() {
-        return new LatestVersionFinder(artifactoryClient(), new PrefixSuffixLatestVersionFilter(semverSupport(), "risk-report-fonts-", ".zip"));
+    public VersionFinder detectFontBundleLatestVersionFinder() throws IntegrationException {
+        return new VersionFinder(artifactoryClient(), new PrefixSuffixVersionFilter(semverSupport(), "risk-report-fonts-", ".zip"));
     }
 
     @Bean
-    public LatestVersionFinder mavenLatestVersionFinder() {
-        return new LatestVersionFinder(artifactoryClient(), mavenLatestVersionFilter());
+    public VersionFinder mavenLatestVersionFinder() throws IntegrationException {
+        return new VersionFinder(artifactoryClient(), mavenLatestVersionFilter());
     }
 
     @Bean
-    public LatestVersionFinder nugetLatestVersionFinder() {
-        return new LatestVersionFinder(artifactoryClient(), nugetLatestVersionFilter());
+    public VersionFinder nugetLatestVersionFinder() throws IntegrationException {
+        return new VersionFinder(artifactoryClient(), nugetLatestVersionFilter());
+    }
+
+    @Bean
+    public RepoArtifactFinder repoArtifactFinder() throws IntegrationException {
+        return new RepoArtifactFinder(artifactoryClient());
+    }
+
+    @Bean
+    public NestedArtifactFinder nestedArtifactFinder() throws IntegrationException {
+        return new NestedArtifactFinder(artifactoryClient());
+    }
+
+    @Bean
+    public ArtifactoryProductsFactory artifactoryProductsFactory() throws IntegrationException {
+        return new ArtifactoryProductsFactory(detectFontBundleLatestVersionFinder(), mavenLatestVersionFinder(), nugetLatestVersionFinder(), repoArtifactFinder(), nestedArtifactFinder());
+    }
+
+    @Bean
+    public ArtifactoryProducts artifactoryProducts() throws IntegrationException {
+        return artifactoryProductsFactory().createDefault();
     }
 
 }

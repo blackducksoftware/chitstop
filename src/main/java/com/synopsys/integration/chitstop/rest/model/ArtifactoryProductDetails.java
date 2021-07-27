@@ -15,7 +15,7 @@ public class ArtifactoryProductDetails extends Stringable {
         this.repoKey = repoKey;
         this.propertiesItemPath = propertiesItemPath;
         this.artifactsItemPath = artifactsItemPath;
-        this.propertyPrefix = propertyPrefix;
+        this.propertyPrefix = propertyPrefix + "_LATEST_";
         this.artifactSuffix = artifactSuffix;
     }
 

@@ -7,11 +7,12 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.LatestVersionFilter;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetLatestVersionFilter;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetVersionFilter;
 import com.synopsys.integration.chitstop.service.artifactory.versionfinder.SemverSupport;
+import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFilter;
+import com.vdurmont.semver4j.Semver;
 
-public class NugetLatestVersionFinderTest {
+public class NugetVersionFinderTest {
     public static final List<String> BLACKDUCK =
         List.of("/BlackduckNugetInspector.0.0.11.nupkg",
             "/BlackduckNugetInspector.0.0.12.nupkg",
@@ -47,29 +48,37 @@ public class NugetLatestVersionFinderTest {
 
     @Test
     public void testFindingLatestBlackduck() {
-        LatestVersionFilter latestVersionFilter = new NugetLatestVersionFilter(semverSupport);
-        Optional<String> latest = latestVersionFilter.latest(BLACKDUCK);
+        VersionFilter versionFilter = new NugetVersionFilter(semverSupport);
+        Optional<String> latest = versionFilter
+                                      .latest(BLACKDUCK)
+                                      .map(Semver::getValue);
         assertEquals("1.0.2", latest.get());
     }
 
     @Test
     public void testFindingLatestIntegration() {
-        LatestVersionFilter latestVersionFilter = new NugetLatestVersionFilter(semverSupport);
-        Optional<String> latest = latestVersionFilter.latest(INTEGRATION);
+        VersionFilter versionFilter = new NugetVersionFilter(semverSupport);
+        Optional<String> latest = versionFilter
+                                      .latest(INTEGRATION)
+                                      .map(Semver::getValue);
         assertEquals("3.0.1", latest.get());
     }
 
     @Test
     public void testFindingLatestDotnet3() {
-        LatestVersionFilter latestVersionFilter = new NugetLatestVersionFilter(semverSupport);
-        Optional<String> latest = latestVersionFilter.latest(DOTNET3);
+        VersionFilter versionFilter = new NugetVersionFilter(semverSupport);
+        Optional<String> latest = versionFilter
+                                      .latest(DOTNET3)
+                                      .map(Semver::getValue);
         assertEquals("1.0.1", latest.get());
     }
 
     @Test
     public void testFindingLatestDotnet5() {
-        LatestVersionFilter latestVersionFilter = new NugetLatestVersionFilter(semverSupport);
-        Optional<String> latest = latestVersionFilter.latest(DOTNET5);
+        VersionFilter versionFilter = new NugetVersionFilter(semverSupport);
+        Optional<String> latest = versionFilter
+                                      .latest(DOTNET5)
+                                      .map(Semver::getValue);
         assertEquals("1.0.1", latest.get());
     }
 
