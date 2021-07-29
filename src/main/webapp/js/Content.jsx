@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 
 import TokenList from "./TokenList";
 import ArtifactoryProducts from "./ArtifactoryProducts";
+import NotFound from "./NotFound";
 
 const Content = () => {
     function Home() {
@@ -12,15 +13,16 @@ const Content = () => {
 
     return (
         <Switch>
-            <Route path="/vms">
+            <Route exact path="/vms">
                 <TokenList />
             </Route>
-            <Route path="/artifactory">
+            <Route exact path="/artifactory">
                 <ArtifactoryProducts />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
                 <Home />
             </Route>
+            <Route component={NotFound} />
         </Switch>
     );
 }

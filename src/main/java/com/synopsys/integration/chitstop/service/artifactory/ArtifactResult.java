@@ -1,16 +1,15 @@
 package com.synopsys.integration.chitstop.service.artifactory;
 
-import com.synopsys.integration.rest.HttpUrl;
 import com.synopsys.integration.util.Stringable;
 
 public class ArtifactResult extends Stringable {
-    public static final ArtifactResult NOT_FOUND = new ArtifactResult("", "", null);
+    public static final ArtifactResult NOT_FOUND = new ArtifactResult("", "", "");
 
     private final String productName;
     private final String propertyKey;
-    private final HttpUrl downloadUrl;
+    private final String downloadUrl;
 
-    public ArtifactResult(String productName, String propertyKey, HttpUrl downloadUrl) {
+    public ArtifactResult(String productName, String propertyKey, String downloadUrl) {
         this.productName = productName;
         this.propertyKey = propertyKey;
         this.downloadUrl = downloadUrl;
@@ -24,7 +23,7 @@ public class ArtifactResult extends Stringable {
         return propertyKey;
     }
 
-    public HttpUrl getDownloadUrl() {
+    public String getDownloadUrl() {
         return downloadUrl;
     }
 

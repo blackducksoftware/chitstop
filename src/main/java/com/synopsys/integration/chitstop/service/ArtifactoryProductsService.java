@@ -98,7 +98,7 @@ public class ArtifactoryProductsService {
 
         ArtifactoryProductDetails artifactoryProductDetails = product.getArtifactoryProductDetails();
         ArtifactoryPath artifactsPath = ArtifactoryPath.createArtifactsPath(artifactoryProductDetails);
-        artifactoryClient.putProperty(artifactsPath, artifactResult.getPropertyKey(), artifactResult.getDownloadUrl().string());
+        artifactoryClient.putProperty(artifactsPath, artifactResult.getPropertyKey(), artifactResult.getDownloadUrl());
     }
 
     private Optional<ArtifactResult> getArtifactResult(String productName, BiFunction<ArtifactoryPath, VersionFinder, Optional<Semver>> versionFinderUsage) throws IntegrationException {
@@ -126,7 +126,7 @@ public class ArtifactoryProductsService {
         HttpUrl downloadUrl = optionalDownloadUrl.get();
 
         String propertyKey = artifactoryProductDetails.getPropertyPrefix() + latestVersion.getMajor();
-        return Optional.of(new ArtifactResult(productName, propertyKey, downloadUrl));
+        return Optional.of(new ArtifactResult(productName, propertyKey, downloadUrl.string()));
     }
 
 }

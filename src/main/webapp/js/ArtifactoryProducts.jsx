@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ArtifactoryProductDetails from "./ArtifactoryProductDetails";
 
 const ArtifactoryProducts = () => {
     const [products, setProducts] = useState([]);
@@ -13,14 +14,9 @@ const ArtifactoryProducts = () => {
     }, []);
 
     return (
-        <div className="artifactoryProducts">
+        <div className="artifactory-products">
             {products.map(item => (
-                <div key={item.name}>
-                    <span>{item.name}:</span>
-                    <span>{item.repoKey}:</span>
-                    <span>{item.itemPathToCheck}:</span>
-                    <span>{item.propertyPrefix}</span>
-                </div>
+                <ArtifactoryProductDetails key={item.name} details={item} />
             ))}
         </div>
     )

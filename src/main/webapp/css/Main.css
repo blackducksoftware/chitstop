@@ -1,35 +1,68 @@
-#main {
-    background: rgb(40, 44, 52);
-    color: rgb(255, 255, 255);
-    padding: 2px;
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
 }
 
 #logo-image {
     width: 455px;
     height: 199px;
-    float: left;
-    margin: 0 15px 0 0;
 }
 
-#left-navigation {
-    margin-top: 199px;
-    width: 200px;
-    height: 100%;
-    position: fixed;
+#header {
+    background-color: #DDDDDD;
+    width: 100%;
+    display: inline-flex;
+    height: 199px;
+}
+
+#header-content {
+    width: 100%;
+    margin-top: 140px;
+    padding: 10px;
     padding-top: 20px;
 }
 
+#page {
+    display: flex;
+    height: calc(100vh - 199px);
+    /* calculate the height. Header is 199px */
+}
+
+#side-bar {
+    background-color: #DDDDDD;
+    padding: 5px;
+    width: 150px;
+}
+
 #content {
-    margin-left: 200px;
-    padding: 0px 10px;
+    padding: 5px;
+    flex: 1 0 auto;
+    overflow: scroll;
 }
 
-#top-links {
-    background-color: #55565A;
-    color: #DEEBFF;
-    padding-top: 170px;
+.border-box {
+    border-width: 4px;
+    border-color: black;
+    border-style: solid;
 }
 
-#footer {
+.artifactory-product-details {
+    margin-bottom: 15px;
+}
 
+.artifactory-product-details-name {
+    font-weight: bold;
+}
+
+.artifactory-product-detail {
+    margin-left: 25px;
+}
+
+.artifactory-product-detail-key {
+    font-size: 10pt;
+    font-style: italic;
 }

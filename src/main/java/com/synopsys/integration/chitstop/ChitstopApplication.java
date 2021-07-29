@@ -10,8 +10,6 @@ package com.synopsys.integration.chitstop;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.WatchService;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -76,17 +74,14 @@ public class ChitstopApplication implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        ReactViewControllerSupport reactViewControllerSupport = new ReactViewControllerSupport(registry);
-
-        List<String> viewDataPairs = new LinkedList<>();
         // the root needs to go to index.html
-        viewDataPairs.add("/");
+        registry.addViewController("/").setViewName("forward:/index.html");
 
         // anything that looks like:
         // /alphaNumericWordWithHyphen
         // which should go to index.html since all /api endpoints will have more
         // than a single level
-        viewDataPairs.add(String.format("/{onlyNeededToEnableRegex:%s}", ALPHANUMERIC_WITH_HYPHEN));
+        registry.addViewController(String.format("/{onlyNeededToEnableRegex:%s}", ALPHANUMERIC_WITH_HYPHEN)).setViewName("forward:/index.html");
 
         // anything that looks like:
         // /alphaNumericWordWithHyphen/alphaNumericWordWithHyphen/...
@@ -94,9 +89,7 @@ public class ChitstopApplication implements WebMvcConfigurer {
         // but anything that starts with:
         // /api/whocares...
         // needs to NOT go to index.html
-        viewDataPairs.add("/{onlyNeededToEnableRegex:^(?!api$).*$}/**/{onlyNeededToEnableRegex2:[\\w\\-]+}");
-
-        reactViewControllerSupport.add(viewDataPairs);
+        registry.addViewController(String.format("/{onlyNeededToEnableRegex:^(?!api$).*$}/**/{onlyNeededToEnableRegex2:%s}", ALPHANUMERIC_WITH_HYPHEN)).setViewName("forward:/index.html");
     }
 
     @Bean
