@@ -103,162 +103,6 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
-/***/ "./src/main/webapp/js/ArtifactoryProductDetail.jsx":
-/*!*********************************************************!*\
-  !*** ./src/main/webapp/js/ArtifactoryProductDetail.jsx ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-
-var ArtifactoryProductDetail = function ArtifactoryProductDetail(_ref) {
-  var details = _ref.details,
-      fieldKey = _ref.fieldKey;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-product-detail"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "artifactory-product-detail-key"
-  }, fieldKey, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "artifactory-product-detail-value"
-  }, details[fieldKey]));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetail);
-
-/***/ }),
-
-/***/ "./src/main/webapp/js/ArtifactoryProductDetails.jsx":
-/*!**********************************************************!*\
-  !*** ./src/main/webapp/js/ArtifactoryProductDetails.jsx ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetail */ "./src/main/webapp/js/ArtifactoryProductDetail.jsx");
-
-
-
-var ArtifactoryProductDetails = function ArtifactoryProductDetails(_ref) {
-  var details = _ref.details;
-  var fieldsWithoutName = Object.keys(details);
-  fieldsWithoutName.splice(fieldsWithoutName.indexOf('name'), 1);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-product-details"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "artifactory-product-details-name"
-  }, details.name), fieldsWithoutName.map(function (item) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
-      key: item,
-      details: details,
-      fieldKey: item
-    });
-  }));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetails);
-
-/***/ }),
-
-/***/ "./src/main/webapp/js/ArtifactoryProducts.jsx":
-/*!****************************************************!*\
-  !*** ./src/main/webapp/js/ArtifactoryProducts.jsx ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetails */ "./src/main/webapp/js/ArtifactoryProductDetails.jsx");
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-var ArtifactoryProducts = function ArtifactoryProducts() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState2 = _slicedToArray(_useState, 2),
-      products = _useState2[0],
-      setProducts = _useState2[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    function fetchProducts() {
-      return _fetchProducts.apply(this, arguments);
-    }
-
-    function _fetchProducts() {
-      _fetchProducts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var result;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return fetch('/api/artifactory/products/all');
-
-              case 2:
-                result = _context.sent;
-                _context.t0 = setProducts;
-                _context.next = 6;
-                return result.json();
-
-              case 6:
-                _context.t1 = _context.sent;
-                (0, _context.t0)(_context.t1);
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-      return _fetchProducts.apply(this, arguments);
-    }
-
-    fetchProducts();
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-products"
-  }, products.map(function (item) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_1__.default, {
-      key: item.name,
-      details: item
-    });
-  }));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProducts);
-
-/***/ }),
-
 /***/ "./src/main/webapp/js/Content.jsx":
 /*!****************************************!*\
   !*** ./src/main/webapp/js/Content.jsx ***!
@@ -272,8 +116,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _TokenList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TokenList */ "./src/main/webapp/js/TokenList.jsx");
-/* harmony import */ var _ArtifactoryProducts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ArtifactoryProducts */ "./src/main/webapp/js/ArtifactoryProducts.jsx");
+/* harmony import */ var _vms_TokenList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vms/TokenList */ "./src/main/webapp/js/vms/TokenList.jsx");
+/* harmony import */ var _artifactory_ArtifactoryProducts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./artifactory/ArtifactoryProducts */ "./src/main/webapp/js/artifactory/ArtifactoryProducts.jsx");
 /* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NotFound */ "./src/main/webapp/js/NotFound.jsx");
 
 
@@ -289,10 +133,10 @@ var Content = function Content() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/vms"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TokenList__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_vms_TokenList__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/artifactory"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProducts__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_artifactory_ArtifactoryProducts__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Home, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
@@ -390,10 +234,625 @@ var NotFound = function NotFound() {
 
 /***/ }),
 
-/***/ "./src/main/webapp/js/Token.jsx":
-/*!**************************************!*\
-  !*** ./src/main/webapp/js/Token.jsx ***!
-  \**************************************/
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx":
+/*!*********************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var ArtifactoryProductDetail = function ArtifactoryProductDetail(_ref) {
+  var product = _ref.product,
+      fieldKey = _ref.fieldKey;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-detail"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "artifactory-product-detail-key"
+  }, fieldKey, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "artifactory-product-detail-value"
+  }, product[fieldKey]));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetail);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx":
+/*!**********************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetail */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx");
+
+
+
+var ArtifactoryProductDetails = function ArtifactoryProductDetails(_ref) {
+  var product = _ref.product;
+  var fieldsWithoutName = Object.keys(product);
+  fieldsWithoutName.splice(fieldsWithoutName.indexOf('name'), 1);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-details"
+  }, fieldsWithoutName.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
+      key: item,
+      product: product,
+      fieldKey: item
+    });
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetails);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx":
+/*!*************************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _core_InputText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/InputText */ "./src/main/webapp/js/core/InputText.jsx");
+/* harmony import */ var _core_Textarea__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/Textarea */ "./src/main/webapp/js/core/Textarea.jsx");
+/* harmony import */ var _ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ArtifactoryProductDetails */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx");
+/* harmony import */ var _ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ArtifactoryProperty */ "./src/main/webapp/js/artifactory/ArtifactoryProperty.jsx");
+/* harmony import */ var _ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ArtifactoryUpdateSuggestion */ "./src/main/webapp/js/artifactory/ArtifactoryUpdateSuggestion.jsx");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var ArtifactoryProductProperties = function ArtifactoryProductProperties(_ref) {
+  var activeProduct = _ref.activeProduct,
+      activateProduct = _ref.activateProduct;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      propertyKey = _useState2[0],
+      setPropertyKey = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      propertyValue = _useState4[0],
+      setPropertyValue = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      updateRecommended = _useState6[0],
+      setUpdateRecommended = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      productProperties = _useState8[0],
+      setProductProperties = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      product = _useState10[0],
+      setProduct = _useState10[1];
+
+  function updateArtifactory() {
+    return _updateArtifactory.apply(this, arguments);
+  }
+
+  function _updateArtifactory() {
+    _updateArtifactory = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return fetch('/api/artifactory/products/latest', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  productName: activeProduct,
+                  propertyKey: propertyKey,
+                  downloadUrl: propertyValue
+                })
+              });
+
+            case 2:
+              activateProduct('');
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _updateArtifactory.apply(this, arguments);
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function fetchSuggestedUpdate() {
+      return _fetchSuggestedUpdate.apply(this, arguments);
+    }
+
+    function _fetchSuggestedUpdate() {
+      _fetchSuggestedUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var result, productResult;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch("/api/artifactory/products/latest?name=".concat(activeProduct));
+
+              case 2:
+                result = _context.sent;
+                _context.next = 5;
+                return result.json();
+
+              case 5:
+                productResult = _context.sent;
+                setPropertyKey(productResult['propertyKey']);
+                setPropertyValue(productResult['downloadUrl']);
+                setUpdateRecommended(productResult['updateRecommended']);
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _fetchSuggestedUpdate.apply(this, arguments);
+    }
+
+    function fetchProductProperties() {
+      return _fetchProductProperties.apply(this, arguments);
+    }
+
+    function _fetchProductProperties() {
+      _fetchProductProperties = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return fetch("/api/artifactory/properties?name=".concat(activeProduct));
+
+              case 2:
+                result = _context2.sent;
+                _context2.t0 = setProductProperties;
+                _context2.next = 6;
+                return result.json();
+
+              case 6:
+                _context2.t1 = _context2.sent;
+                (0, _context2.t0)(_context2.t1);
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _fetchProductProperties.apply(this, arguments);
+    }
+
+    function fetchProduct() {
+      return _fetchProduct.apply(this, arguments);
+    }
+
+    function _fetchProduct() {
+      _fetchProduct = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var result;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return fetch("/api/artifactory/products?name=".concat(activeProduct));
+
+              case 2:
+                result = _context3.sent;
+                _context3.t0 = setProduct;
+                _context3.next = 6;
+                return result.json();
+
+              case 6:
+                _context3.t1 = _context3.sent;
+                (0, _context3.t0)(_context3.t1);
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+      return _fetchProduct.apply(this, arguments);
+    }
+
+    if (activeProduct) {
+      fetchSuggestedUpdate();
+      fetchProductProperties();
+      fetchProduct();
+    }
+
+    return function cleanup() {
+      setPropertyKey('');
+      setPropertyValue('');
+      setUpdateRecommended(false);
+      setProductProperties([]);
+      setProduct('');
+    };
+  }, [activeProduct]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-properties"
+  }, "Existing Properties:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-properties-list"
+  }, productProperties.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_4__.default, {
+      key: item.key,
+      data: item
+    });
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-properties-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_5__.default, {
+    activeProduct: activeProduct,
+    updateRecommended: updateRecommended
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-properties-form-suggestion"
+  }), "Suggested Change:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-properties-form-inputs"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "input"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Key:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_InputText__WEBPACK_IMPORTED_MODULE_1__.default, {
+    value: propertyKey,
+    setValue: setPropertyKey,
+    size: 40
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "input"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Value:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_Textarea__WEBPACK_IMPORTED_MODULE_2__.default, {
+    value: propertyValue,
+    setValue: setPropertyValue,
+    rows: 4,
+    columns: 80
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "submit"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: updateArtifactory
+  }, "Update Artifactory"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Product Details:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_3__.default, {
+    product: product
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductProperties);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProducts.jsx":
+/*!****************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProducts.jsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ArtifactoryProductProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductProperties */ "./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var ArtifactoryProducts = function ArtifactoryProducts() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      products = _useState2[0],
+      setProducts = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      activeProduct = _useState4[0],
+      activateProduct = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function fetchProducts() {
+      return _fetchProducts.apply(this, arguments);
+    }
+
+    function _fetchProducts() {
+      _fetchProducts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch('/api/artifactory/products/all');
+
+              case 2:
+                result = _context.sent;
+                _context.t0 = setProducts;
+                _context.next = 6;
+                return result.json();
+
+              case 6:
+                _context.t1 = _context.sent;
+                (0, _context.t0)(_context.t1);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _fetchProducts.apply(this, arguments);
+    }
+
+    fetchProducts();
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-products"
+  }, products.map(function (product) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      key: product.name,
+      className: "artifactory-product"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "artifactory-product-name",
+      onClick: function onClick() {
+        return activateProduct(product.name);
+      }
+    }, product.name));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductProperties__WEBPACK_IMPORTED_MODULE_1__.default, {
+    activeProduct: activeProduct,
+    activateProduct: activateProduct
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProducts);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProperty.jsx":
+/*!****************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProperty.jsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var ArtifactoryProperty = function ArtifactoryProperty(_ref) {
+  var data = _ref.data;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-property"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-property-key"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, data.key)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-property-value"
+  }, data.value));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProperty);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryUpdateSuggestion.jsx":
+/*!************************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryUpdateSuggestion.jsx ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _UpdateRecommended__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRecommended */ "./src/main/webapp/js/artifactory/UpdateRecommended.jsx");
+/* harmony import */ var _UpdateNotRecommended__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateNotRecommended */ "./src/main/webapp/js/artifactory/UpdateNotRecommended.jsx");
+
+
+
+
+var ArtifactoryUpdateSuggestion = function ArtifactoryUpdateSuggestion(_ref) {
+  var activeProduct = _ref.activeProduct,
+      updateRecommended = _ref.updateRecommended;
+
+  if (!activeProduct) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
+  }
+
+  if (updateRecommended) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UpdateRecommended__WEBPACK_IMPORTED_MODULE_1__.default, null);
+  } else {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_UpdateNotRecommended__WEBPACK_IMPORTED_MODULE_2__.default, null);
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryUpdateSuggestion);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/UpdateNotRecommended.jsx":
+/*!*****************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/UpdateNotRecommended.jsx ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var UpdateNotRecommended = function UpdateNotRecommended() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-update-not-recommended"
+  }, "The existing property matches the suggestion. No update is recommended. If you just released, make sure the artifact is correctly published in Artifactory.");
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateNotRecommended);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/UpdateRecommended.jsx":
+/*!**************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/UpdateRecommended.jsx ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var UpdateNotRecommended = function UpdateNotRecommended() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-update-recommended"
+  }, "Please consider updating - the existing property does not match the suggestion.");
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateNotRecommended);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/core/InputText.jsx":
+/*!***********************************************!*\
+  !*** ./src/main/webapp/js/core/InputText.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var InputText = function InputText(_ref) {
+  var value = _ref.value,
+      setValue = _ref.setValue,
+      size = _ref.size;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "text",
+    value: value,
+    onChange: function onChange(e) {
+      return setValue(e.target.value);
+    },
+    size: size
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InputText);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/core/Textarea.jsx":
+/*!**********************************************!*\
+  !*** ./src/main/webapp/js/core/Textarea.jsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var Textarea = function Textarea(_ref) {
+  var value = _ref.value,
+      setValue = _ref.setValue,
+      rows = _ref.rows,
+      columns = _ref.columns;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+    value: value,
+    onChange: function onChange(e) {
+      return setValue(e.target.value);
+    },
+    rows: rows,
+    cols: columns
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Textarea);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/vms/Token.jsx":
+/*!******************************************!*\
+  !*** ./src/main/webapp/js/vms/Token.jsx ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -427,10 +886,10 @@ var Token = function Token(_ref) {
 
 /***/ }),
 
-/***/ "./src/main/webapp/js/TokenList.jsx":
-/*!******************************************!*\
-  !*** ./src/main/webapp/js/TokenList.jsx ***!
-  \******************************************/
+/***/ "./src/main/webapp/js/vms/TokenList.jsx":
+/*!**********************************************!*\
+  !*** ./src/main/webapp/js/vms/TokenList.jsx ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -439,7 +898,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Token */ "./src/main/webapp/js/Token.jsx");
+/* harmony import */ var _Token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Token */ "./src/main/webapp/js/vms/Token.jsx");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -15745,7 +16204,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n    margin-left: 25px;\n}\n\n.artifactory-product-detail-key {\n    font-style: italic;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/main.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,SAAS;AACb;;AAEA;IACI,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,yBAAyB;IACzB,WAAW;IACX,oBAAoB;IACpB,aAAa;AACjB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,aAAa;IACb,iBAAiB;AACrB;;AAEA;IACI,aAAa;IACb,2BAA2B;IAC3B,0CAA0C;AAC9C;;AAEA;IACI,yBAAyB;IACzB,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,cAAc;IACd,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,kBAAkB;AACtB","sourcesContent":["html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n    margin-left: 25px;\n}\n\n.artifactory-product-detail-key {\n    font-style: italic;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow-y: scroll;\n    overflow-x: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/main.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,SAAS;AACb;;AAEA;IACI,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,yBAAyB;IACzB,WAAW;IACX,oBAAoB;IACpB,aAAa;AACjB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,aAAa;IACb,iBAAiB;AACrB;;AAEA;IACI,aAAa;IACb,2BAA2B;IAC3B,0CAA0C;AAC9C;;AAEA;IACI,yBAAyB;IACzB,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,cAAc;IACd,kBAAkB;IAClB,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;IACI,oBAAoB;AACxB;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;AACA;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,aAAa;IACb,mBAAmB;AACvB;;AAEA;;AAEA;;AAEA;IACI,iBAAiB;IACjB,eAAe;IACf,kBAAkB;IAClB,YAAY;AAChB;;AAEA;IACI,UAAU;AACd","sourcesContent":["html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow-y: scroll;\n    overflow-x: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

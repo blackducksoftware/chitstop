@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ArtifactoryProductDetail = ({ details, fieldKey }) => {
+const ArtifactoryProductDetail = ({ product, fieldKey }) => {
     return (
         <div className="artifactory-product-detail">
             <span className="artifactory-product-detail-key">{fieldKey}: </span>
-            <span className="artifactory-product-detail-value">{details[fieldKey]}</span>
+            <span className="artifactory-product-detail-value">{product[fieldKey]}</span>
         </div>
     );
 }

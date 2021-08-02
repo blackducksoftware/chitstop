@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Route, Switch } from "react-router-dom";
 
-import TokenList from "./TokenList";
-import ArtifactoryProducts from "./ArtifactoryProducts";
+import TokenList from "./vms/TokenList";
+import ArtifactoryProducts from "./artifactory/ArtifactoryProducts";
 import NotFound from "./NotFound";
 
 const Content = () => {

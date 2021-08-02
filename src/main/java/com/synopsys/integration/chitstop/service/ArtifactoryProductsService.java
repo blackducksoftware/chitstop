@@ -10,12 +10,12 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.synopsys.integration.chitstop.rest.model.ArtifactoryProductDetails;
 import com.synopsys.integration.chitstop.rest.model.ArtifactoryPropertiesResponse;
+import com.synopsys.integration.chitstop.rest.model.ArtifactoryProperty;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactResult;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryPath;
@@ -38,7 +38,7 @@ public class ArtifactoryProductsService {
         this.artifactoryClient = artifactoryClient;
     }
 
-    public List<ArtifactoryProductDetails> findAll() {
+    public List<ArtifactoryProductDetails> findAllProducts() {
         return artifactoryProducts
                    .list()
                    .stream()
@@ -46,16 +46,22 @@ public class ArtifactoryProductsService {
                    .collect(Collectors.toList());
     }
 
-    public Map<ArtifactoryProductDetails, List<Pair<String, String>>> findAllProperties() throws IntegrationException {
-        Map<ArtifactoryProductDetails, List<Pair<String, String>>> allProperties = new LinkedHashMap<>();
-        for (ArtifactoryProductDetails artifactoryProductDetails : findAll()) {
+    public Optional<ArtifactoryProductDetails> findProduct(String productName) {
+        return artifactoryProducts
+                   .byName(productName)
+                   .map(ArtifactoryProduct::getArtifactoryProductDetails);
+    }
+
+    public Map<ArtifactoryProductDetails, List<ArtifactoryProperty>> findAllProperties() throws IntegrationException {
+        Map<ArtifactoryProductDetails, List<ArtifactoryProperty>> allProperties = new LinkedHashMap<>();
+        for (ArtifactoryProductDetails artifactoryProductDetails : findAllProducts()) {
             allProperties.put(artifactoryProductDetails, findProperties(artifactoryProductDetails.getName()));
         }
 
         return allProperties;
     }
 
-    public List<Pair<String, String>> findProperties(String productName) throws IntegrationException {
+    public List<ArtifactoryProperty> findProperties(String productName) throws IntegrationException {
         Optional<ArtifactoryProduct> optionalProduct = artifactoryProducts.byName(productName);
         if (optionalProduct.isEmpty()) {
             return Collections.emptyList();
@@ -71,11 +77,11 @@ public class ArtifactoryProductsService {
             return Collections.emptyList();
         }
 
-        List<Pair<String, String>> properties = new LinkedList<>();
+        List<ArtifactoryProperty> properties = new LinkedList<>();
         for (String name : propertyMap.keySet()) {
             if (name.startsWith(artifactoryProductDetails.getPropertyPrefix())) {
                 String values = StringUtils.join(propertyMap.get(name), ", ");
-                properties.add(Pair.of(name, values));
+                properties.add(new ArtifactoryProperty(name, values));
             }
         }
         return properties;
@@ -126,7 +132,19 @@ public class ArtifactoryProductsService {
         HttpUrl downloadUrl = optionalDownloadUrl.get();
 
         String propertyKey = artifactoryProductDetails.getPropertyPrefix() + latestVersion.getMajor();
-        return Optional.of(new ArtifactResult(productName, propertyKey, downloadUrl.string()));
+
+        List<ArtifactoryProperty> artifactoryProperties = findProperties(productName);
+        boolean updateRecommended = !doesPropertyHaveValue(artifactoryProperties, propertyKey, downloadUrl.string());
+
+        return Optional.of(new ArtifactResult(productName, propertyKey, downloadUrl.string(), updateRecommended));
+    }
+
+    private boolean doesPropertyHaveValue(List<ArtifactoryProperty> artifactoryProperties, String propertyKey, String propertyValue) {
+        return artifactoryProperties
+                   .stream()
+                   .filter(property -> propertyKey.equals(property.getKey()) && propertyValue.equals(property.getValue()))
+                   .findAny()
+                   .isPresent();
     }
 
 }

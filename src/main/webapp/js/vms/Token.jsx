@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Token = ({ data }) => {
-    return (
+const Token = ({ data }) =>
+    (
         <div className="token">
             <div>
                 <span className="label">
@@ -29,6 +29,5 @@ const Token = ({ data }) => {
             </div>
         </div>
     )
-}
 
 export default Token

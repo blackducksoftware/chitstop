@@ -12,7 +12,7 @@ const TokenList = () => {
             setTokens(await result.json());
         }
 
-        fetchTokens()
+        fetchTokens();
     }, []);
 
     return (

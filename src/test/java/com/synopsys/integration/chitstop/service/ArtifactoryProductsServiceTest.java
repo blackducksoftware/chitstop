@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ import com.synopsys.integration.rest.client.IntHttpClient;
 
 public class ArtifactoryProductsServiceTest {
     @Test
+    @Disabled
     public void testArtifactory() throws IntegrationException {
         ChitstopApplication chitstopApplication = new ChitstopApplication();
         ArtifactoryClient artifactoryClient = chitstopApplication.artifactoryClient();
@@ -44,7 +46,7 @@ public class ArtifactoryProductsServiceTest {
         IntLogger logger = chitstopApplication.logger();
         IntHttpClient httpClient = chitstopApplication.httpClient();
         Gson gson = chitstopApplication.gson();
-        HttpUrl internalArtifactory = new HttpUrl(ArtifactoryClient.INTERNAL_ARTIFACTORY);
+        HttpUrl internalArtifactory = new HttpUrl("https://artifactory.internal.synopsys.com/artifactory");
         ArtifactoryClient artifactoryClient = new ArtifactoryClient(logger, httpClient, gson, internalArtifactory, internalArtifactory);
         VersionFinder mavenVersionFinder = new VersionFinder(artifactoryClient, chitstopApplication.mavenLatestVersionFilter());
         ArtifactFinder nestedArtifactFinder = new NestedArtifactFinder(artifactoryClient);
@@ -69,7 +71,7 @@ public class ArtifactoryProductsServiceTest {
         artifactoryProductsService
             .findProperties(productName)
             .stream()
-            .map(pair -> String.format("%s = %s", pair.getLeft(), pair.getRight()))
+            .map(property -> String.format("%s = %s", property.getKey(), property.getValue()))
             .forEach(System.out::println);
     }
 

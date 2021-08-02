@@ -3,7 +3,6 @@ package com.synopsys.integration.chitstop.rest.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synopsys.integration.chitstop.rest.model.ArtifactoryProductDetails;
+import com.synopsys.integration.chitstop.rest.model.ArtifactoryProperty;
 import com.synopsys.integration.chitstop.service.ArtifactoryProductsService;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactResult;
 import com.synopsys.integration.exception.IntegrationException;
@@ -35,7 +35,20 @@ public class ArtifactoryProductController {
     )
     @ResponseBody
     public List<ArtifactoryProductDetails> retrieveArtifactoryProducts() {
-        return artifactoryProductsService.findAll();
+        return artifactoryProductsService.findAllProducts();
+    }
+
+    @GetMapping(
+        value = "/products",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseBody
+    public ArtifactoryProductDetails retrieveArtifactoryProduct(
+        @RequestParam(value = "name"
+        ) String productName) throws IntegrationException {
+        return artifactoryProductsService
+                   .findProduct(productName)
+                   .orElse(null);
     }
 
     @GetMapping(
@@ -63,17 +76,26 @@ public class ArtifactoryProductController {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
-    public Map<ArtifactoryProductDetails, List<Pair<String, String>>> updateArtifact(@RequestBody ArtifactResult artifactResult) throws IntegrationException {
+    public void updateArtifact(@RequestBody ArtifactResult artifactResult) throws IntegrationException {
         artifactoryProductsService.updateProperty(artifactResult);
-        return retrieveArtifactoryProperties();
     }
 
     @GetMapping(
         value = "/properties/all",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Map<ArtifactoryProductDetails, List<Pair<String, String>>> retrieveArtifactoryProperties() throws IntegrationException {
+    public Map<ArtifactoryProductDetails, List<ArtifactoryProperty>> retrieveArtifactoryProperties() throws IntegrationException {
         return artifactoryProductsService.findAllProperties();
+    }
+
+    @GetMapping(
+        value = "/properties",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public List<ArtifactoryProperty> retrieveArtifactoryProductProperties(
+        @RequestParam(value = "name"
+        ) String productName) throws IntegrationException {
+        return artifactoryProductsService.findProperties(productName);
     }
 
 }
