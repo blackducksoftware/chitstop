@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ArtifactoryProductProperties from "./ArtifactoryProductProperties";
+import ArtifactoryProduct from "./ArtifactoryProduct";
 
 const ArtifactoryProducts = () => {
     const [products, setProducts] = useState([]);
@@ -23,7 +23,7 @@ const ArtifactoryProducts = () => {
                     </div>
                 ))}
             </div>
-            <ArtifactoryProductProperties activeProduct={activeProduct} activateProduct={activateProduct} />
+            <ArtifactoryProduct activeProduct={activeProduct} activateProduct={activateProduct} />
         </div>
     )
 }

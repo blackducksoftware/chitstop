@@ -16,6 +16,7 @@ import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProduct;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProducts;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProductsFactory;
+import com.synopsys.integration.chitstop.service.artifactory.LatestPropertySelector;
 import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
 import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.NestedArtifactFinder;
 import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
@@ -31,9 +32,10 @@ public class ArtifactoryProductsServiceTest {
         ChitstopApplication chitstopApplication = new ChitstopApplication();
         ArtifactoryClient artifactoryClient = chitstopApplication.artifactoryClient();
         ArtifactoryProductsFactory artifactoryProductsFactory = chitstopApplication.artifactoryProductsFactory();
+        LatestPropertySelector latestPropertySelector = new LatestPropertySelector();
         ArtifactoryProducts artifactoryProducts = artifactoryProductsFactory.createDefault();
 
-        ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient);
+        ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient, latestPropertySelector);
         Optional<ArtifactResult> artifactResult = artifactoryProductsService.getLatestVersionArtifactResult("integrationNugetInspector");
         assertTrue(artifactResult.isPresent());
         System.out.println(artifactResult.get());
@@ -53,9 +55,10 @@ public class ArtifactoryProductsServiceTest {
 
         ArtifactoryProductDetails details = new ArtifactoryProductDetails("detectTest", "bds-integrations-test", "com/synopsys/integration/synopsys-detect", "com/synopsys/integration/synopsys-detect", "DETECT_TEST", ".jar");
         ArtifactoryProduct detectTest = new ArtifactoryProduct(details, mavenVersionFinder, nestedArtifactFinder);
+        LatestPropertySelector latestPropertySelector = new LatestPropertySelector();
         ArtifactoryProducts artifactoryProducts = new ArtifactoryProducts(List.of(detectTest));
 
-        ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient);
+        ArtifactoryProductsService artifactoryProductsService = new ArtifactoryProductsService(artifactoryProducts, artifactoryClient, latestPropertySelector);
         ArtifactResult artifactResult = artifactoryProductsService.getLatestVersionArtifactResult("detectTest").get();
         ArtifactResult artifactResult6 = artifactoryProductsService.getLatestWithinMajorVersionArtifactResult("detectTest", 6).get();
 

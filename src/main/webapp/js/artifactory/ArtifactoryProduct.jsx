@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import InputText from "../core/InputText";
-import Textarea from "../core/Textarea";
 import ArtifactoryProductDetails from "./ArtifactoryProductDetails";
 import ArtifactoryProperty from "./ArtifactoryProperty";
 import ArtifactoryUpdateSuggestion from "./ArtifactoryUpdateSuggestion";
+import ArtifactoryProductInputs from "./ArtifactoryProductInputs";
 
-const ArtifactoryProductProperties = ({ activeProduct, activateProduct }) => {
+const ArtifactoryProduct = ({ activeProduct, activateProduct }) => {
     const [propertyKey, setPropertyKey] = useState('');
     const [propertyValue, setPropertyValue] = useState('');
     const [updateRecommended, setUpdateRecommended] = useState(false);
@@ -62,35 +61,21 @@ const ArtifactoryProductProperties = ({ activeProduct, activateProduct }) => {
     }, [activeProduct]);
 
     return (
-        <div className="artifactory-product-properties">
-            Existing Properties:
-            <div className="artifactory-properties-list">
+        <div className="artifactory-product">
+            <div>
+                <h2>{activeProduct}</h2>
+            </div>
+            <div className="artifactory-product-properties">
                 {productProperties.map(item => (
                     <ArtifactoryProperty key={item.key} data={item} />
                 ))}
             </div>
-            <div className="artifactory-properties-form">
+            <div className="artifactory-product-form">
                 <ArtifactoryUpdateSuggestion activeProduct={activeProduct} updateRecommended={updateRecommended} />
                 <div className="artifactory-properties-form-suggestion">
                 </div>
-                Suggested Change:
-                <div className="artifactory-properties-form-inputs">
-                    <div className="input">
-                        <div>
-                            Key:
-                        </div>
-                        <div>
-                            <InputText value={propertyKey} setValue={setPropertyKey} size={40} />
-                        </div>
-                    </div>
-                    <div className="input">
-                        <div>
-                            Value:
-                        </div>
-                        <div>
-                            <Textarea value={propertyValue} setValue={setPropertyValue} rows={4} columns={80} />
-                        </div>
-                    </div>
+                <div className="artifactory-product-form-inputs">
+                    <ArtifactoryProductInputs propertyKey={propertyKey} setPropertyKey={setPropertyKey} propertyValue={propertyValue} setPropertyValue={setPropertyValue} productProperties={productProperties} />
                 </div>
                 <div className="submit">
                     <button onClick={updateArtifactory}>Update Artifactory</button>
@@ -104,4 +89,4 @@ const ArtifactoryProductProperties = ({ activeProduct, activateProduct }) => {
     );
 }
 
-export default ArtifactoryProductProperties;
+export default ArtifactoryProduct;

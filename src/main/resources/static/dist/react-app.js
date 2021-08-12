@@ -234,10 +234,10 @@ var NotFound = function NotFound() {
 
 /***/ }),
 
-/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx":
-/*!*********************************************************************!*\
-  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx ***!
-  \*********************************************************************/
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProduct.jsx":
+/*!***************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProduct.jsx ***!
+  \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -246,76 +246,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-
-var ArtifactoryProductDetail = function ArtifactoryProductDetail(_ref) {
-  var product = _ref.product,
-      fieldKey = _ref.fieldKey;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-product-detail"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "artifactory-product-detail-key"
-  }, fieldKey, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-    className: "artifactory-product-detail-value"
-  }, product[fieldKey]));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetail);
-
-/***/ }),
-
-/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx":
-/*!**********************************************************************!*\
-  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetail */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx");
-
-
-
-var ArtifactoryProductDetails = function ArtifactoryProductDetails(_ref) {
-  var product = _ref.product;
-  var fieldsWithoutName = Object.keys(product);
-  fieldsWithoutName.splice(fieldsWithoutName.indexOf('name'), 1);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-product-details"
-  }, fieldsWithoutName.map(function (item) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
-      key: item,
-      product: product,
-      fieldKey: item
-    });
-  }));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetails);
-
-/***/ }),
-
-/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx":
-/*!*************************************************************************!*\
-  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _core_InputText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/InputText */ "./src/main/webapp/js/core/InputText.jsx");
-/* harmony import */ var _core_Textarea__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/Textarea */ "./src/main/webapp/js/core/Textarea.jsx");
-/* harmony import */ var _ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ArtifactoryProductDetails */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx");
-/* harmony import */ var _ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ArtifactoryProperty */ "./src/main/webapp/js/artifactory/ArtifactoryProperty.jsx");
-/* harmony import */ var _ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ArtifactoryUpdateSuggestion */ "./src/main/webapp/js/artifactory/ArtifactoryUpdateSuggestion.jsx");
+/* harmony import */ var _ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetails */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx");
+/* harmony import */ var _ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ArtifactoryProperty */ "./src/main/webapp/js/artifactory/ArtifactoryProperty.jsx");
+/* harmony import */ var _ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ArtifactoryUpdateSuggestion */ "./src/main/webapp/js/artifactory/ArtifactoryUpdateSuggestion.jsx");
+/* harmony import */ var _ArtifactoryProductInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ArtifactoryProductInputs */ "./src/main/webapp/js/artifactory/ArtifactoryProductInputs.jsx");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -338,8 +272,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-var ArtifactoryProductProperties = function ArtifactoryProductProperties(_ref) {
+var ArtifactoryProduct = function ArtifactoryProduct(_ref) {
   var activeProduct = _ref.activeProduct,
       activateProduct = _ref.activateProduct;
 
@@ -523,46 +456,151 @@ var ArtifactoryProductProperties = function ArtifactoryProductProperties(_ref) {
     };
   }, [activeProduct]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, activeProduct)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "artifactory-product-properties"
-  }, "Existing Properties:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-properties-list"
   }, productProperties.map(function (item) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_4__.default, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProperty__WEBPACK_IMPORTED_MODULE_2__.default, {
       key: item.key,
       data: item
     });
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-properties-form"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_5__.default, {
+    className: "artifactory-product-form"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryUpdateSuggestion__WEBPACK_IMPORTED_MODULE_3__.default, {
     activeProduct: activeProduct,
     updateRecommended: updateRecommended
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "artifactory-properties-form-suggestion"
-  }), "Suggested Change:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-properties-form-inputs"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "input"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Key:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_InputText__WEBPACK_IMPORTED_MODULE_1__.default, {
-    value: propertyKey,
-    setValue: setPropertyKey,
-    size: 40
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "input"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Value:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_Textarea__WEBPACK_IMPORTED_MODULE_2__.default, {
-    value: propertyValue,
-    setValue: setPropertyValue,
-    rows: 4,
-    columns: 80
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-form-inputs"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductInputs__WEBPACK_IMPORTED_MODULE_4__.default, {
+    propertyKey: propertyKey,
+    setPropertyKey: setPropertyKey,
+    propertyValue: propertyValue,
+    setPropertyValue: setPropertyValue,
+    productProperties: productProperties
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "submit"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: updateArtifactory
-  }, "Update Artifactory"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Product Details:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_3__.default, {
+  }, "Update Artifactory"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Product Details:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetails__WEBPACK_IMPORTED_MODULE_1__.default, {
     product: product
   })));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductProperties);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProduct);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx":
+/*!*********************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var ArtifactoryProductDetail = function ArtifactoryProductDetail(_ref) {
+  var product = _ref.product,
+      fieldKey = _ref.fieldKey;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-detail"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "artifactory-product-detail-key"
+  }, fieldKey, ": "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "artifactory-product-detail-value"
+  }, product[fieldKey]));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetail);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx":
+/*!**********************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductDetails.jsx ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductDetail */ "./src/main/webapp/js/artifactory/ArtifactoryProductDetail.jsx");
+
+
+
+var ArtifactoryProductDetails = function ArtifactoryProductDetails(_ref) {
+  var product = _ref.product;
+  var fieldsWithoutName = Object.keys(product);
+  fieldsWithoutName.splice(fieldsWithoutName.indexOf('name'), 1);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-product-details"
+  }, fieldsWithoutName.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductDetail__WEBPACK_IMPORTED_MODULE_1__.default, {
+      key: item,
+      product: product,
+      fieldKey: item
+    });
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductDetails);
+
+/***/ }),
+
+/***/ "./src/main/webapp/js/artifactory/ArtifactoryProductInputs.jsx":
+/*!*********************************************************************!*\
+  !*** ./src/main/webapp/js/artifactory/ArtifactoryProductInputs.jsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _core_InputText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core/InputText */ "./src/main/webapp/js/core/InputText.jsx");
+/* harmony import */ var _core_Textarea__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core/Textarea */ "./src/main/webapp/js/core/Textarea.jsx");
+
+
+
+
+var ArtifactoryProductInputs = function ArtifactoryProductInputs(_ref) {
+  var propertyKey = _ref.propertyKey,
+      setPropertyKey = _ref.setPropertyKey,
+      propertyValue = _ref.propertyValue,
+      setPropertyValue = _ref.setPropertyValue,
+      productProperties = _ref.productProperties;
+  var currentValue = productProperties.filter(function (item) {
+    return item.key == propertyKey;
+  }).map(function (item) {
+    return item.value;
+  }).join();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_InputText__WEBPACK_IMPORTED_MODULE_1__.default, {
+    value: propertyKey,
+    setValue: setPropertyKey,
+    size: 40
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Current value:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-property-value"
+  }, currentValue)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_Textarea__WEBPACK_IMPORTED_MODULE_2__.default, {
+    value: propertyValue,
+    setValue: setPropertyValue,
+    rows: 4,
+    columns: 80
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ArtifactoryProductInputs);
 
 /***/ }),
 
@@ -578,7 +616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ArtifactoryProductProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProductProperties */ "./src/main/webapp/js/artifactory/ArtifactoryProductProperties.jsx");
+/* harmony import */ var _ArtifactoryProduct__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArtifactoryProduct */ "./src/main/webapp/js/artifactory/ArtifactoryProduct.jsx");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -660,7 +698,7 @@ var ArtifactoryProducts = function ArtifactoryProducts() {
         return activateProduct(product.name);
       }
     }, product.name));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProductProperties__WEBPACK_IMPORTED_MODULE_1__.default, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProduct__WEBPACK_IMPORTED_MODULE_1__.default, {
     activeProduct: activeProduct,
     activateProduct: activateProduct
   }));

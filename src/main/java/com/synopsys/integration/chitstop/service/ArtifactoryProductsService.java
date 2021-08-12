@@ -2,14 +2,12 @@ package com.synopsys.integration.chitstop.service;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryPath;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProduct;
 import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProducts;
+import com.synopsys.integration.chitstop.service.artifactory.LatestPropertySelector;
 import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
 import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
 import com.synopsys.integration.exception.IntegrationException;
@@ -31,11 +30,13 @@ import com.vdurmont.semver4j.Semver;
 public class ArtifactoryProductsService {
     private final ArtifactoryProducts artifactoryProducts;
     private final ArtifactoryClient artifactoryClient;
+    private final LatestPropertySelector latestPropertySelector;
 
     @Autowired
-    public ArtifactoryProductsService(ArtifactoryProducts artifactoryProducts, ArtifactoryClient artifactoryClient) {
+    public ArtifactoryProductsService(ArtifactoryProducts artifactoryProducts, ArtifactoryClient artifactoryClient, LatestPropertySelector latestPropertySelector) {
         this.artifactoryProducts = artifactoryProducts;
         this.artifactoryClient = artifactoryClient;
+        this.latestPropertySelector = latestPropertySelector;
     }
 
     public List<ArtifactoryProductDetails> findAllProducts() {
@@ -73,18 +74,8 @@ public class ArtifactoryProductsService {
 
         ArtifactoryPropertiesResponse propertiesResponse = artifactoryClient.findProperties(artifactoryPath);
         Map<String, List<String>> propertyMap = propertiesResponse.getProperties();
-        if (null == propertyMap) {
-            return Collections.emptyList();
-        }
 
-        List<ArtifactoryProperty> properties = new LinkedList<>();
-        for (String name : propertyMap.keySet()) {
-            if (name.startsWith(artifactoryProductDetails.getPropertyPrefix())) {
-                String values = StringUtils.join(propertyMap.get(name), ", ");
-                properties.add(new ArtifactoryProperty(name, values));
-            }
-        }
-        return properties;
+        return latestPropertySelector.selectLatestProperties(propertyMap, artifactoryProductDetails.getPropertyPrefix());
     }
 
     public Optional<ArtifactResult> getLatestVersionArtifactResult(String productName) throws IntegrationException {
