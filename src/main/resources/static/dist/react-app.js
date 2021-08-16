@@ -592,7 +592,7 @@ var ArtifactoryProductInputs = function ArtifactoryProductInputs(_ref) {
     size: 40
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Current value:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "artifactory-property-value"
-  }, currentValue)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_Textarea__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }, currentValue)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Suggested change:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_core_Textarea__WEBPACK_IMPORTED_MODULE_2__.default, {
     value: propertyValue,
     setValue: setPropertyValue,
     rows: 4,

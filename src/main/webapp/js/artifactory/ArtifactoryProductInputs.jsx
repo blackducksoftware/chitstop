@@ -20,6 +20,7 @@ const ArtifactoryProductInputs = ({ propertyKey, setPropertyKey, propertyValue, 
                 </div>
             </div>
             <div>
+                Suggested change:
                 <Textarea value={propertyValue} setValue={setPropertyValue} rows={4} columns={80} />
             </div>
         </div>
