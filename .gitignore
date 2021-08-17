@@ -13,3 +13,5 @@ out/
 # build tool
 .gradle/
 build/
+node_modules
+
