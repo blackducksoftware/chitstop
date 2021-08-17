@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                    .select()
-                   .apis(RequestHandlerSelectors.basePackage("com.synopsys.integration.chitstop"))
+                   .apis(RequestHandlerSelectors.basePackage("com.synopsys.integration.chitstop.rest"))
                    .paths(PathSelectors.any())
                    .build();
     }

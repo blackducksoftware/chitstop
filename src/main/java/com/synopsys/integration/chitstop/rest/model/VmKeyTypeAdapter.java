@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonWriter;
 public class VmKeyTypeAdapter extends TypeAdapter<VmKey> {
     @Override
     public void write(JsonWriter jsonWriter, VmKey vmKey) throws IOException {
-        jsonWriter.jsonValue(vmKey.getValue());
+        jsonWriter.value(vmKey.getValue());
     }
 
     @Override

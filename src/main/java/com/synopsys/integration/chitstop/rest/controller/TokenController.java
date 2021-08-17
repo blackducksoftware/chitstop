@@ -25,17 +25,17 @@ import com.synopsys.integration.chitstop.rest.model.VmKey;
 import com.synopsys.integration.chitstop.service.ApiTokens;
 
 @RestController
-@RequestMapping("/api/token")
-public class ApiTokenController {
+@RequestMapping("/")
+public class TokenController {
     private final ApiTokens apiTokens;
 
     @Autowired
-    public ApiTokenController(ApiTokens apiTokens) {
+    public TokenController(ApiTokens apiTokens) {
         this.apiTokens = apiTokens;
     }
 
     @GetMapping(
-        value = "/pure",
+        value = "/puretoken",
         produces = MediaType.TEXT_PLAIN_VALUE
     )
     @ResponseBody
@@ -47,6 +47,7 @@ public class ApiTokenController {
     }
 
     @GetMapping(
+        value = "/token",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
@@ -58,7 +59,7 @@ public class ApiTokenController {
     }
 
     @GetMapping(
-        value = "/all",
+        value = "/tokens",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseBody
@@ -76,6 +77,7 @@ public class ApiTokenController {
     }
 
     @PutMapping(
+        value = "/token",
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public void store(@RequestBody ApiToken apiToken) {
@@ -83,6 +85,7 @@ public class ApiTokenController {
     }
 
     @DeleteMapping(
+        value = "/token",
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public void clearVmToken(
@@ -93,7 +96,7 @@ public class ApiTokenController {
     }
 
     @DeleteMapping(
-        value = "/all",
+        value = "/tokens",
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public void clearVmTokens(@RequestParam(value = "vm") VmKey vmKey) {
