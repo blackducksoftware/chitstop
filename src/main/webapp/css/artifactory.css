@@ -1,0 +1,46 @@
+.artifactory {
+    display: inline-flex;
+}
+
+.artifactory-products {
+    margin-right: 40px;
+}
+
+.artifactory-product {
+}
+
+.artifactory-product-details {
+    margin-bottom: 15px;
+}
+
+.artifactory-product-details-name {
+    font-weight: bold;
+}
+
+.artifactory-product-detail {
+}
+
+.artifactory-product-detail-key {
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.artifactory-property {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.artifactory-property-key {
+
+}
+
+.artifactory-property-value {
+    margin-left: 10px;
+    font-size: 10pt;
+    font-style: italic;
+    width: 600px;
+}
+
+.artifactory-product-update-recommended {
+    color: red;
+}

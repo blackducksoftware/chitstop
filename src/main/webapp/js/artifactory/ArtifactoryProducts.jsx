@@ -16,12 +16,16 @@ const ArtifactoryProducts = () => {
 
     return (
         <div className="artifactory">
-            <div className="artifactory-products">
-                {products.map(product => (
-                    <div key={product.name} className="artifactory-product">
-                        <button className="artifactory-product-name" onClick={() => activateProduct(product.name)}>{product.name}</button>
+            <div className="container-fluid">
+                <div className="row">
+                    <div class="btn-toolbar col-lg-3" role="toolbar">
+                        <div className="artifactory-products btn-group-vertical btn-group-sm">
+                            {products.map(product => (
+                                <button key={product.name} className="btn btn-outline-primary" onClick={() => activateProduct(product.name)}>{product.name}</button>
+                            ))}
+                        </div>
                     </div>
-                ))}
+                </div>
             </div>
             <ArtifactoryProduct activeProduct={activeProduct} activateProduct={activateProduct} />
         </div>

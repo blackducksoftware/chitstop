@@ -6,10 +6,10 @@ import LeftNav from "./LeftNav";
 const NavigationAndContent = () => {
     return (
         <Router>
-            <div id="side-bar" className="border-box">
+            <div id="side-bar" className="col-lg-2">
                 <LeftNav />
             </div>
-            <div id="content" className="border-box">
+            <div id="content" className="col-lg-10">
                 <Content />
             </div>
         </Router>

@@ -201,10 +201,10 @@ __webpack_require__.r(__webpack_exports__);
 var NavigationAndContent = function NavigationAndContent() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "side-bar",
-    className: "border-box"
+    className: "col-lg-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LeftNav__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "content",
-    className: "border-box"
+    className: "col-lg-10"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Content__WEBPACK_IMPORTED_MODULE_1__.default, null)));
 };
 
@@ -687,18 +687,23 @@ var ArtifactoryProducts = function ArtifactoryProducts() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "artifactory"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "artifactory-products"
+    className: "container-fluid"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    "class": "btn-toolbar col-lg-3",
+    role: "toolbar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "artifactory-products btn-group-vertical btn-group-sm"
   }, products.map(function (product) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       key: product.name,
-      className: "artifactory-product"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-      className: "artifactory-product-name",
+      className: "btn btn-outline-primary",
       onClick: function onClick() {
         return activateProduct(product.name);
       }
-    }, product.name));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProduct__WEBPACK_IMPORTED_MODULE_1__.default, {
+    }, product.name);
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ArtifactoryProduct__WEBPACK_IMPORTED_MODULE_1__.default, {
     activeProduct: activeProduct,
     activateProduct: activateProduct
   }));
@@ -16222,6 +16227,33 @@ module.exports = __webpack_require__(/*! ../internals/path */ "./node_modules/co
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/main/webapp/css/artifactory.css":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/main/webapp/css/artifactory.css ***!
+  \***********************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product {\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/artifactory.css"],"names":[],"mappings":"AAAA;IACI,oBAAoB;AACxB;;AAEA;IACI,kBAAkB;AACtB;;AAEA;AACA;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;AACA;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,aAAa;IACb,mBAAmB;AACvB;;AAEA;;AAEA;;AAEA;IACI,iBAAiB;IACjB,eAAe;IACf,kBAAkB;IAClB,YAAY;AAChB;;AAEA;IACI,UAAU;AACd","sourcesContent":[".artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product {\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/main/webapp/css/main.css":
 /*!****************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/main/webapp/css/main.css ***!
@@ -16242,7 +16274,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow-y: scroll;\n    overflow-x: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/main.css"],"names":[],"mappings":"AAAA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,SAAS;AACb;;AAEA;IACI,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,yBAAyB;IACzB,WAAW;IACX,oBAAoB;IACpB,aAAa;AACjB;;AAEA;IACI,WAAW;IACX,iBAAiB;IACjB,aAAa;IACb,iBAAiB;AACrB;;AAEA;IACI,aAAa;IACb,2BAA2B;IAC3B,0CAA0C;AAC9C;;AAEA;IACI,yBAAyB;IACzB,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,cAAc;IACd,kBAAkB;IAClB,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,mBAAmB;AACvB;;AAEA;IACI,oBAAoB;AACxB;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;AACA;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,aAAa;IACb,mBAAmB;AACvB;;AAEA;;AAEA;;AAEA;IACI,iBAAiB;IACjB,eAAe;IACf,kBAAkB;IAClB,YAAY;AAChB;;AAEA;IACI,UAAU;AACd","sourcesContent":["html {\n    height: 100%;\n}\n\nbody {\n    height: 100%;\n    margin: 0;\n}\n\n#logo-image {\n    width: 455px;\n    height: 199px;\n}\n\n#header {\n    background-color: #DDDDDD;\n    width: 100%;\n    display: inline-flex;\n    height: 199px;\n}\n\n#header-content {\n    width: 100%;\n    margin-top: 140px;\n    padding: 10px;\n    padding-top: 20px;\n}\n\n#page {\n    display: flex;\n    height: calc(100vh - 199px);\n    /* calculate the height. Header is 199px */\n}\n\n#side-bar {\n    background-color: #DDDDDD;\n    padding: 5px;\n    width: 150px;\n}\n\n#content {\n    padding: 5px;\n    flex: 1 0 auto;\n    overflow-y: scroll;\n    overflow-x: scroll;\n}\n\n.border-box {\n    border-width: 4px;\n    border-color: black;\n    border-style: solid;\n}\n\n.artifactory {\n    display: inline-flex;\n}\n\n.artifactory-products {\n    margin-right: 40px;\n}\n\n.artifactory-product-details {\n    margin-bottom: 15px;\n}\n\n.artifactory-product-details-name {\n    font-weight: bold;\n}\n\n.artifactory-product-detail {\n}\n\n.artifactory-product-detail-key {\n    font-size: 10pt;\n    font-style: italic;\n}\n\n.artifactory-property {\n    display: flex;\n    margin-bottom: 15px;\n}\n\n.artifactory-property-key {\n\n}\n\n.artifactory-property-value {\n    margin-left: 10px;\n    font-size: 10pt;\n    font-style: italic;\n    width: 600px;\n}\n\n.artifactory-product-update-recommended {\n    color: red;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#page {\n    overflow: hidden;\n}\n\n#header {\n    min-height: 202px;\n    height: 202px;\n    padding: 0px;\n    border-top: 3px solid black;\n    border-right: 3px solid black;\n    border-left: 3px solid black;\n    background-color: #DDDDDD;\n}\n\n#logo {\n    padding: 0px;\n    border-right: 3px solid black;\n}\n\n#header-content {\n    margin-bottom: 50px;\n}\n\n#middle {\n    /*202 + 50*/\n    height: calc(100vh - 252px);\n}\n\n#side-bar {\n    height: calc(100vh - 252px);\n    padding: 5px;\n    border-top: 3px solid black;\n    border-left: 3px solid black;\n    background-color: #DDDDDD;\n}\n\n#content {\n    height: calc(100vh - 252px);\n    padding-top: 20px;\n    border-top: 3px solid black;\n    border-right: 3px solid black;\n    border-left: 3px solid black;\n    overflow: auto;\n}\n\n#footer {\n    min-height: 50px;\n    height: 50px;\n    padding: 0px;\n    background-color: black;\n    color: whitesmoke;\n    font-size: smaller;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/main.css"],"names":[],"mappings":"AAAA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;IACjB,aAAa;IACb,YAAY;IACZ,2BAA2B;IAC3B,6BAA6B;IAC7B,4BAA4B;IAC5B,yBAAyB;AAC7B;;AAEA;IACI,YAAY;IACZ,6BAA6B;AACjC;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,WAAW;IACX,2BAA2B;AAC/B;;AAEA;IACI,2BAA2B;IAC3B,YAAY;IACZ,2BAA2B;IAC3B,4BAA4B;IAC5B,yBAAyB;AAC7B;;AAEA;IACI,2BAA2B;IAC3B,iBAAiB;IACjB,2BAA2B;IAC3B,6BAA6B;IAC7B,4BAA4B;IAC5B,cAAc;AAClB;;AAEA;IACI,gBAAgB;IAChB,YAAY;IACZ,YAAY;IACZ,uBAAuB;IACvB,iBAAiB;IACjB,kBAAkB;AACtB","sourcesContent":["#page {\n    overflow: hidden;\n}\n\n#header {\n    min-height: 202px;\n    height: 202px;\n    padding: 0px;\n    border-top: 3px solid black;\n    border-right: 3px solid black;\n    border-left: 3px solid black;\n    background-color: #DDDDDD;\n}\n\n#logo {\n    padding: 0px;\n    border-right: 3px solid black;\n}\n\n#header-content {\n    margin-bottom: 50px;\n}\n\n#middle {\n    /*202 + 50*/\n    height: calc(100vh - 252px);\n}\n\n#side-bar {\n    height: calc(100vh - 252px);\n    padding: 5px;\n    border-top: 3px solid black;\n    border-left: 3px solid black;\n    background-color: #DDDDDD;\n}\n\n#content {\n    height: calc(100vh - 252px);\n    padding-top: 20px;\n    border-top: 3px solid black;\n    border-right: 3px solid black;\n    border-left: 3px solid black;\n    overflow: auto;\n}\n\n#footer {\n    min-height: 50px;\n    height: 50px;\n    padding: 0px;\n    background-color: black;\n    color: whitesmoke;\n    font-size: smaller;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50888,6 +50920,36 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./src/main/webapp/css/artifactory.css":
+/*!*********************************************!*\
+  !*** ./src/main/webapp/css/artifactory.css ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_artifactory_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js!./artifactory.css */ "./node_modules/css-loader/dist/cjs.js!./src/main/webapp/css/artifactory.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_artifactory_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_artifactory_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./src/main/webapp/css/main.css":
 /*!**************************************!*\
   !*** ./src/main/webapp/css/main.css ***!
@@ -51406,7 +51468,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _css_main_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../css/main.css */ "./src/main/webapp/css/main.css");
-/* harmony import */ var _NavigationAndContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./NavigationAndContent */ "./src/main/webapp/js/NavigationAndContent.jsx");
+/* harmony import */ var _css_artifactory_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../css/artifactory.css */ "./src/main/webapp/css/artifactory.css");
+/* harmony import */ var _NavigationAndContent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NavigationAndContent */ "./src/main/webapp/js/NavigationAndContent.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51436,6 +51499,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Main = /*#__PURE__*/function (_Component) {
   _inherits(Main, _Component);
 
@@ -51450,20 +51514,32 @@ var Main = /*#__PURE__*/function (_Component) {
   _createClass(Main, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        id: "page",
+        className: "container-fluid"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", {
         id: "header",
-        className: "border-box"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "row align-items-end"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        id: "logo"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         src: "../images/logo.png"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        id: "header-content"
+        id: "header-content",
+        className: "col-lg-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         href: "https://github.com/blackducksoftware"
       }, "Github"), " | ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
         href: "https://eng-jenkins-dev01.dc1.lan/job/integration-builds-v2/"
       }, "Jenkins"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        id: "page"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NavigationAndContent__WEBPACK_IMPORTED_MODULE_5__.default, null)));
+        id: "middle",
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NavigationAndContent__WEBPACK_IMPORTED_MODULE_6__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
+        id: "footer",
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "col-lg-12"
+      }, "What is wroooong with you? | Weeeeee did it! | Billings'ed!!! | Never slather yourself in BBQ sauce in a den of hyenas | Piss Whale | Team Shit | Grapist | Sexy Fox | Bridge of Cheese")));
     }
   }]);
 
