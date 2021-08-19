@@ -62,25 +62,28 @@ const ArtifactoryProduct = ({ activeProduct, activateProduct }) => {
 
     return (
         <div className="artifactory-product">
-            <div>
-                <h2>{activeProduct}</h2>
-            </div>
-            <div className="artifactory-product-properties">
-                {productProperties.map(item => (
-                    <ArtifactoryProperty key={item.key} data={item} />
-                ))}
-            </div>
+            <h2>{activeProduct}</h2>
             <div className="artifactory-product-form">
                 <ArtifactoryUpdateSuggestion activeProduct={activeProduct} updateRecommended={updateRecommended} />
-                <div className="artifactory-properties-form-suggestion">
-                </div>
                 <div className="artifactory-product-form-inputs">
                     <ArtifactoryProductInputs propertyKey={propertyKey} setPropertyKey={setPropertyKey} propertyValue={propertyValue} setPropertyValue={setPropertyValue} productProperties={productProperties} />
                 </div>
                 <div className="submit">
-                    <button onClick={updateArtifactory}>Update Artifactory</button>
+                    <button className="btn btn-primary" onClick={updateArtifactory}>Update Artifactory</button>
                 </div>
             </div>
+            <div className="small-spacer"></div>
+            <div className="artifactory-product-properties">
+                All existing properties:
+                <ul className="list-group">
+                    {productProperties.map(item => (
+                        <li key={item.key} className="list-group-item">
+                            <ArtifactoryProperty data={item} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="small-spacer"></div>
             <div>
                 Product Details:
                 <ArtifactoryProductDetails product={product} />

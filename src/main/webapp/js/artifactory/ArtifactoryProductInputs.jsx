@@ -1,27 +1,23 @@
 import React from 'react';
 import InputText from "../core/InputText";
 import Textarea from "../core/Textarea";
+import ArtifactoryProperty from "./ArtifactoryProperty";
 
 const ArtifactoryProductInputs = ({ propertyKey, setPropertyKey, propertyValue, setPropertyValue, productProperties }) => {
-    const currentValue = productProperties
+    const currentProperty = productProperties
         .filter(item => item.key == propertyKey)
-        .map(item => item.value)
-        .join();
+        .pop() || { key: '', value: '' }
 
     return (
         <div>
-            <div>
-                <InputText value={propertyKey} setValue={setPropertyKey} size={40} />
+            <div className="form-group">
+                <label>Current value</label>
+                <ArtifactoryProperty data={currentProperty} />
             </div>
-            <div>
-                Current value:
-                <div className="artifactory-property-value">
-                    {currentValue}
-                </div>
-            </div>
-            <div>
-                Suggested change:
-                <Textarea value={propertyValue} setValue={setPropertyValue} rows={4} columns={80} />
+            <div className="form-group">
+                <label htmlFor="artifactory-product-property-value">Suggested change</label>
+                <InputText elementId="artifactory-product-property-key" value={propertyKey} setValue={setPropertyKey} size={40} />
+                <Textarea elementId="artifactory-product-property-value" value={propertyValue} setValue={setPropertyValue} rows={4} columns={80} />
             </div>
         </div>
     );

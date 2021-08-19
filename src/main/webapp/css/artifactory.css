@@ -1,12 +1,12 @@
 .artifactory {
-    display: inline-flex;
 }
 
 .artifactory-products {
-    margin-right: 40px;
+    float: left;
 }
 
 .artifactory-product {
+    margin-left: 215px;
 }
 
 .artifactory-product-details {
@@ -26,19 +26,15 @@
 }
 
 .artifactory-property {
-    display: flex;
-    margin-bottom: 15px;
 }
 
 .artifactory-property-key {
-
 }
 
 .artifactory-property-value {
     margin-left: 10px;
     font-size: 10pt;
     font-style: italic;
-    width: 600px;
 }
 
 .artifactory-product-update-recommended {

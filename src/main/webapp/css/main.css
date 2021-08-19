@@ -51,3 +51,7 @@
     color: whitesmoke;
     font-size: smaller;
 }
+
+.small-spacer {
+    height: 10px;
+}
