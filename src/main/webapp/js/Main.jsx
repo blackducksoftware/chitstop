@@ -14,7 +14,7 @@ class Main extends Component {
             <div id="page" className="container-fluid">
                 <header id="header" className="row align-items-end">
                     <div id="logo">
-                        <img src="../images/logo.png" />
+                        <img src="images/logo.png" />
                     </div>
                     <div id="header-content" className="col-lg-8">
                         <a href="https://github.com/blackducksoftware">Github</a> | <a href="https://eng-jenkins-dev01.dc1.lan/job/integration-builds-v2/">Jenkins</a>

@@ -42,6 +42,7 @@ public class ArtifactoryProductsServiceTest {
     }
 
     @Test
+    @Disabled
     public void testCreatingProperty() throws IntegrationException {
         ChitstopApplication chitstopApplication = new ChitstopApplication();
 
