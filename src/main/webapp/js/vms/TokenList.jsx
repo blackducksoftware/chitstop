@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Token from "./Token";
 
-const TokenList = () => {
-    const [count, setCount] = useState(0);
-    const [tokens, setTokens] = useState([]);
-
-    useEffect(() => {
-        async function fetchTokens() {
-            const result = await fetch('/api/token/all');
-            setTokens(await result.json());
-        }
-
-        fetchTokens();
-    }, []);
-
+const TokenList = ({ vmKey, tokenArray }) => {
     return (
-        <>
-            <div className="tokenList">
-                {tokens.map(item => (
+        <div>
+            <h4>
+                {vmKey}
+            </h4>
+            <ul className="list-group">
+                {tokenArray.map(item => (
                     <Token key={item.token} data={item} />
                 ))}
-            </div>
-            <div>
-                <p>You clicked {count} times</p>
-                <button onClick={() => setCount(count + 1)}>
-                    Click me
-                </button>
-            </div>
-        </>
+            </ul>
+        </div>
     )
 }
 

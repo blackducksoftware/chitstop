@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Route, Switch } from "react-router-dom";
 
-import TokenList from "./vms/TokenList";
 import ArtifactoryProducts from "./artifactory/ArtifactoryProducts";
 import NotFound from "./NotFound";
+import Tokens from "./vms/Tokens";
 
 const Content = () => {
     function Home() {
@@ -14,7 +14,7 @@ const Content = () => {
     return (
         <Switch>
             <Route exact path="/vms">
-                <TokenList />
+                <Tokens />
             </Route>
             <Route exact path="/artifactory">
                 <ArtifactoryProducts />

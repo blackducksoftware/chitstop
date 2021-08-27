@@ -2,32 +2,14 @@ import React from 'react';
 
 const Token = ({ data }) =>
     (
-        <div className="token">
+        <li className="list-group-item">
             <div>
-                <span className="label">
-                    Username:
-                </span>
-                <span className="value">
-                    {data.tokenDetails.username}
-                </span>
+                {data.tokenDetails.username} ({data.tokenDetails.scope})
             </div>
             <div>
-                <span className="label">
-                    Scope:
-                </span>
-                <span className="value">
-                    {data.tokenDetails.scope}
-                </span>
+                {data.token}
             </div>
-            <div>
-                <span className="label">
-                    Token:
-                </span>
-                <span className="value">
-                    {data.token}
-                </span>
-            </div>
-        </div>
+        </li>
     )
 
 export default Token
