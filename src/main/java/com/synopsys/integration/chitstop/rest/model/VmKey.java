@@ -20,8 +20,8 @@ public class VmKey extends Stringable {
             vmKey
                 .replace("https://", "")
                 .replace("http://", "")
-                .replace("int-", "")
-                .replace(".dc1.lan", "");
+                .replace("us1a-int-", "")
+                .replace(".nprd.sig.synopsys.com", "");
     }
 
     public String getValue() {
