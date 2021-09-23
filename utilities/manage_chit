@@ -1,4 +1,8 @@
 #! /bin/bash
+# shellcheck disable=SC2155
+
+## TO DO
+##  - When chitstop is started, make a file with the running PID. Use this file for status, stop, start
 
 EXEC_OPTION="HELP"
 CHIT_JAR=""
@@ -7,7 +11,8 @@ CHIT_PID=""
 CHIT_PID_OWNER=""
 CHIT_RUNNING=""
 CHIT_STATUS_MSG=""
-LOG_DIR="/srv/hot_chit/logs"
+LOG_DIR="$(pwd)/logs"
+LOG_BASENAME="chit_log."
 SCRIPT_RUNNER=$(whoami)
 
 function _chit_start() {
@@ -24,11 +29,11 @@ function _chit_start() {
 
   fullChitCmd="nohup java -jar ${CHIT_JAR}${CHIT_JAR_ARGS}"
   loggingDate=$(date +%s)
-  logFile="${LOG_DIR}/chit_log.${loggingDate}"
+  logFile="${LOG_DIR}/${LOG_BASENAME}${loggingDate}"
 
   echo "Starting the chit: ${fullChitCmd}"
   echo "Logs will be sent to: ${logFile}"
-set -x
+
   ${fullChitCmd} 1> "${logFile}" 2>&1 &
 }
 
@@ -41,37 +46,46 @@ function _chit_status() {
 function _chit_stop() {
   _chit_status
 
-  if [[ "${CHIT_RUNNING}" == "NO" ]]; then
-    exit 0
-  elif [[ "${CHIT_RUNNING}" == "ERROR" ]]; then
+  if [[ "${CHIT_RUNNING}" == "ERROR" ]]; then
     echo "ERROR: Must identify and kill process manually"
     exit 1
-  fi
+  elif [[ "${CHIT_RUNNING}" == "YES" ]]; then
 
-  if [[ "${SCRIPT_RUNNER}" != "${CHIT_PID_OWNER}" ]]; then
-    echo "ERROR: A different user has started the application, you must kill manually."
-    exit 1
-  fi
+    if [[ "${SCRIPT_RUNNER}" != "${CHIT_PID_OWNER}" ]]; then
+      echo "ERROR: A different user has started the application, you must kill manually."
+      exit 1
+    fi
 
-  _kill_the_chit
-  _chit_status
+    _kill_the_chit
+    _chit_status
 
-  if [[ "${CHIT_RUNNING}" != "NO" ]]; then
-    echo "ERROR: Something went wrong and the process is still running"
-    _display_running_chit
-    exit 1
-  else
-    echo "Application successfully stopped"
+    if [[ "${CHIT_RUNNING}" != "NO" ]]; then
+      echo "ERROR: Something went wrong and the process is still running"
+      _display_running_chit
+      exit 1
+    else
+      echo "Application successfully stopped"
+    fi
   fi
+}
+
+function _chit_log() {
+  local lastLogFile=$(find "${LOG_DIR}"/${LOG_BASENAME}* | sort | tail -1)
+
+  echo "The last log found is: ${lastLogFile}"
+  echo ""
+  cat "${lastLogFile}"
 }
 
 function _chit_help() {
   echo -e "
 
-  This process supports 3 options:
-  $0 START  - This will use nohup and & to start the process in the background
-  $0 STATUS - Displays any running instances
-  $0 STOP   - This will use pgrep -f to find the pid and kill it
+  This process supports 5 options:
+  $0 START   - This will use nohup and & to start the process in the background
+  $0 STATUS  - Displays any running instances
+  $0 STOP    - This will use pgrep -f to find the pid and kill it
+  $0 LOG     - This will show the contents of the last log file in the directory: ${LOG_DIR}
+  $0 BOUNCE  - This will run STOP then run START
 
   Things to note:
   \t* Run this from the directory which contains the jar, it won't work otherwise.
@@ -135,7 +149,7 @@ shopt -s nocasematch
 while [[ $# -gt 0 ]]; do
   myArg="${1}"
   case "${myArg}" in
-    start|stop|status)
+    start|stop|status|restart|bounce|log|logs)
       EXEC_OPTION=${myArg^^}
       ;;
     --*=*)
@@ -155,6 +169,11 @@ elif [[ "${EXEC_OPTION}" == "STATUS" ]]; then
   _chit_status
 elif [[ "${EXEC_OPTION}" == "STOP" ]]; then
   _chit_stop
+elif [[ "${EXEC_OPTION}" =~ ^"LOG" ]]; then
+  _chit_log
+elif [[ "${EXEC_OPTION}" =~ (RESTART|BOUNCE) ]]; then
+  _chit_stop
+  _chit_start
 elif [[ "${EXEC_OPTION}" == "HELP" ]]; then
   _chit_help
 fi
