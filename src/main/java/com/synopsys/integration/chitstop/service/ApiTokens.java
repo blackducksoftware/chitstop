@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,24 +39,35 @@ public class ApiTokens {
         this.apiTokenStorage = apiTokenStorage;
     }
 
-    public String tokensStatusReport() {
-        Map<VmKey, List<ApiToken>> tokensByVm =
+    public Set<VmKey> findAllVmKeys() {
+        return apiTokenStorage
+                   .retrieveApiTokens()
+                   .stream()
+                   .map(apiToken -> apiToken.getTokenDetails().getVmKey())
+                   .collect(Collectors.toSet());
+    }
+
+    public Map<VmKey, ApiToken> findTokensByUsernameAndScope(String username, ApiTokenScope scope) {
+        return
             apiTokenStorage
                 .retrieveApiTokens()
                 .stream()
-                .collect(Collectors.groupingBy(apiToken -> apiToken.getTokenDetails().getVmKey()));
+                .filter(apiToken -> apiToken.getTokenDetails().getUsername().equals(username))
+                .filter(apiToken -> apiToken.getTokenDetails().getScope().equals(scope))
+                .collect(Collectors.toMap(apiToken -> apiToken.getTokenDetails().getVmKey(), Function.identity(), (existing, replacement) -> existing));
+    }
+
+    public String tokensStatusReport() {
+        Set<VmKey> allVmKeys = findAllVmKeys();
+        Map<VmKey, ApiToken> sysadminTokens = findTokensByUsernameAndScope(DEFAULT_USERNAME, DEFAULT_SCOPE);
 
         List<VmTokensStatus> tokensStatuses = new LinkedList<>();
-        for (Map.Entry<VmKey, List<ApiToken>> entry : tokensByVm.entrySet()) {
-            entry.getValue()
-                .stream()
-                .filter(apiToken -> DEFAULT_USERNAME.equals(apiToken.getTokenDetails().getUsername()))
-                .filter(apiToken -> DEFAULT_SCOPE.equals(apiToken.getTokenDetails().getScope()))
-                .findFirst()
-                .ifPresentOrElse(
-                    apiToken -> tokensStatuses.add(VmTokensStatus.okay(entry.getKey())),
-                    () -> tokensStatuses.add(VmTokensStatus.missing(entry.getKey()))
-                );
+        for (VmKey vmKey : allVmKeys) {
+            if (sysadminTokens.containsKey(vmKey)) {
+                tokensStatuses.add(VmTokensStatus.okay(vmKey));
+            } else {
+                tokensStatuses.add(VmTokensStatus.missing(vmKey));
+            }
         }
 
         Collections.sort(tokensStatuses, Comparator.comparing(status -> status.getVmKey().getValue()));
@@ -68,6 +81,10 @@ public class ApiTokens {
 
     public void storeToken(ApiToken apiToken) {
         apiTokenStorage.storeApiToken(apiToken);
+    }
+
+    public List<ApiToken> findAll() {
+        return findAll(null);
     }
 
     public List<ApiToken> findAll(VmKey vmKey) {

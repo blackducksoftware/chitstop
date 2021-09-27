@@ -20,6 +20,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -49,6 +50,7 @@ import com.synopsys.integration.rest.proxy.ProxyInfo;
 import springfox.documentation.spring.web.json.Json;
 
 @SpringBootApplication
+@EnableScheduling
 public class ChitstopApplication implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(ChitstopApplication.class);
     private static final String ALPHANUMERIC_WITH_HYPHEN = "[\\w\\-]+";

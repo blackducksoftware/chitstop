@@ -2,7 +2,7 @@ import React from 'react';
 
 const Token = ({ data }) =>
     (
-        <li className="list-group-item">
+        <li className="list-group-item vms-token-details">
             <div>
                 {data.tokenDetails.username} ({data.tokenDetails.scope})
             </div>

@@ -12,6 +12,9 @@ const LeftNav = () => {
                     <Link to="/vms">VM's</Link>
                 </li>
                 <li>
+                    <Link to="/vms/diagnostics">VM Diagnostics</Link>
+                </li>
+                <li>
                     <Link to="/artifactory">Artifactory</Link>
                 </li>
             </ul>

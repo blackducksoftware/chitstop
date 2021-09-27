@@ -5,9 +5,9 @@ import Token from "./Token";
 const TokenList = ({ vmKey, tokenArray }) => {
     return (
         <div>
-            <h4>
+            <div className="vms-name">
                 {vmKey}
-            </h4>
+            </div>
             <ul className="list-group">
                 {tokenArray.map(item => (
                     <Token key={item.token} data={item} />

@@ -9,17 +9,11 @@ const Tokens = () => {
             const result = await fetch('/api/token/all');
             const tokenArray = await result.json();
 
-            const tokenMapTOTALCRAP = {};
+            const tokenMap = {};
             tokenArray.forEach(token => {
-                let mappedTokens = tokenMapTOTALCRAP[token.tokenDetails.vmKey];
-                if (mappedTokens) tokenMapTOTALCRAP.push(token); else tokenMapTOTALCRAP[token.tokenDetails.vmKey] = [token]
+                let mappedTokens = tokenMap[token.tokenDetails.vmKey];
+                if (mappedTokens) mappedTokens.push(token); else tokenMap[token.tokenDetails.vmKey] = [token]
             });
-
-            const tokenMap = tokenArray.reduce((map, token) => {
-                let mappedTokens = map[token.tokenDetails.vmKey];
-                if (mappedTokens) mappedTokens.push(token); else map[token.tokenDetails.vmKey] = [token]
-                return map;
-            }, {});
 
             setVmKeyToTokens(tokenMap);
         }

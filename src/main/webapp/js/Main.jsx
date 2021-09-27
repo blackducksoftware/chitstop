@@ -5,6 +5,7 @@ import "regenerator-runtime/runtime";
 
 import '../css/main.css'
 import '../css/artifactory.css'
+import '../css/vms.css'
 
 import NavigationAndContent from "./NavigationAndContent";
 
@@ -17,7 +18,12 @@ class Main extends Component {
                         <img src="images/logo.png" />
                     </div>
                     <div id="header-content" className="col-lg-8">
-                        <a href="https://github.com/blackducksoftware">Github</a> | <a href="https://eng-jenkins-dev01.dc1.lan/job/integration-builds-v2/">Jenkins</a>
+                        <div>
+                            <a href="https://github.com/blackducksoftware">Github</a> | <a href="https://eng-jenkins-dev01.dc1.lan/job/integration-builds-v2/">Jenkins</a>
+                        </div>
+                        <div>
+                            Non-functional requirements are an implementation detail. - Seth Katzman, 2021-09-24
+                        </div>
                     </div>
                 </header>
                 <div id="middle" className="row">

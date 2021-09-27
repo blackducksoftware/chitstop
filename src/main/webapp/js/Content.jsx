@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import ArtifactoryProducts from "./artifactory/ArtifactoryProducts";
 import NotFound from "./NotFound";
 import Tokens from "./vms/Tokens";
+import Diagnostics from "./vms/Diagnostics";
 
 const Content = () => {
     function Home() {
@@ -15,6 +16,9 @@ const Content = () => {
         <Switch>
             <Route exact path="/vms">
                 <Tokens />
+            </Route>
+            <Route exact path="/vms/diagnostics">
+                <Diagnostics />
             </Route>
             <Route exact path="/artifactory">
                 <ArtifactoryProducts />

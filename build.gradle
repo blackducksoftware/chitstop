@@ -35,7 +35,7 @@ processResources.dependsOn 'buildReactApp'
 clean.delete << file('src/main/resources/static/dist')
 
 dependencies {
-    implementation 'com.synopsys.integration:integration-rest:10.2.0'
+    implementation 'com.synopsys.integration:blackduck-common:58.1.0'
     implementation 'com.vdurmont:semver4j:3.1.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

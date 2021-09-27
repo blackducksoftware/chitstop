@@ -9,6 +9,8 @@ package com.synopsys.integration.chitstop.rest.model;
 
 import javax.validation.constraints.NotBlank;
 
+import com.synopsys.integration.exception.IntegrationException;
+import com.synopsys.integration.rest.HttpUrl;
 import com.synopsys.integration.util.Stringable;
 
 public class VmKey extends Stringable {
@@ -26,6 +28,10 @@ public class VmKey extends Stringable {
 
     public String getValue() {
         return value;
+    }
+
+    public HttpUrl https() throws IntegrationException {
+        return new HttpUrl(String.format("https://us1a-int-%s.nprd.sig.synopsys.com", value));
     }
 
 }
