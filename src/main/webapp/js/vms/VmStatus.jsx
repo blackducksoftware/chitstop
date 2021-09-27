@@ -3,7 +3,7 @@ import React from 'react';
 const VmStatus = ({ data }) =>
     (
         <tr>
-            <td>{data.blackDuckUrl}</td>
+            <th scope="row">{data.blackDuckUrl}</th>
             <td>{data.version}</td>
             <td>{String(data.live)}</td>
             <td>{String(data.ready)}</td>

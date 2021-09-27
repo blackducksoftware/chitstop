@@ -9,7 +9,7 @@ const LeftNav = () => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/vms">VM's</Link>
+                    <Link to="/vms">VM Tokens</Link>
                 </li>
                 <li>
                     <Link to="/vms/diagnostics">VM Diagnostics</Link>
