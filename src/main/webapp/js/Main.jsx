@@ -15,7 +15,7 @@ class Main extends Component {
             <div id="page" className="container-fluid">
                 <header id="header" className="row align-items-end">
                     <div id="logo">
-                        <img src="images/logo.png" />
+                        <img src="/images/logo.png" />
                     </div>
                     <div id="header-content" className="col-lg-8">
                         <div>
