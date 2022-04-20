@@ -1,7 +1,7 @@
 /*
  * chitstop
  *
- * Copyright (c) 2021 Synopsys, Inc.
+ * Copyright (c) 2022 Synopsys, Inc.
  *
  * Use subject to the terms and conditions of the Synopsys End User Software License and Maintenance Agreement. All rights reserved worldwide.
  */
@@ -48,16 +48,16 @@ public class ArtifactoryProductsService {
 
     public List<ArtifactoryProductDetails> findAllProducts() {
         return artifactoryProducts
-                   .list()
-                   .stream()
-                   .map(ArtifactoryProduct::getArtifactoryProductDetails)
-                   .collect(Collectors.toList());
+            .list()
+            .stream()
+            .map(ArtifactoryProduct::getArtifactoryProductDetails)
+            .collect(Collectors.toList());
     }
 
     public Optional<ArtifactoryProductDetails> findProduct(String productName) {
         return artifactoryProducts
-                   .byName(productName)
-                   .map(ArtifactoryProduct::getArtifactoryProductDetails);
+            .byName(productName)
+            .map(ArtifactoryProduct::getArtifactoryProductDetails);
     }
 
     public Map<ArtifactoryProductDetails, List<ArtifactoryProperty>> findAllProperties() throws IntegrationException {
@@ -101,7 +101,7 @@ public class ArtifactoryProductsService {
         ArtifactoryProduct product = optionalProduct.get();
 
         ArtifactoryProductDetails artifactoryProductDetails = product.getArtifactoryProductDetails();
-        ArtifactoryPath artifactsPath = ArtifactoryPath.createArtifactsPath(artifactoryProductDetails);
+        ArtifactoryPath artifactsPath = ArtifactoryPath.createPropertiesPath(artifactoryProductDetails);
         artifactoryClient.putProperty(artifactsPath, artifactResult.getPropertyKey(), artifactResult.getDownloadUrl());
     }
 
@@ -139,10 +139,10 @@ public class ArtifactoryProductsService {
 
     private boolean doesPropertyHaveValue(List<ArtifactoryProperty> artifactoryProperties, String propertyKey, String propertyValue) {
         return artifactoryProperties
-                   .stream()
-                   .filter(property -> propertyKey.equals(property.getKey()) && propertyValue.equals(property.getValue()))
-                   .findAny()
-                   .isPresent();
+            .stream()
+            .filter(property -> propertyKey.equals(property.getKey()) && propertyValue.equals(property.getValue()))
+            .findAny()
+            .isPresent();
     }
 
 }
