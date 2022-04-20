@@ -1,7 +1,7 @@
 /*
  * chitstop
  *
- * Copyright (c) 2021 Synopsys, Inc.
+ * Copyright (c) 2022 Synopsys, Inc.
  *
  * Use subject to the terms and conditions of the Synopsys End User Software License and Maintenance Agreement. All rights reserved worldwide.
  */
@@ -33,7 +33,7 @@ public class ArtifactoryProductsFactory {
     public ArtifactoryProducts createDefault() {
         ArtifactoryProduct BLACKDUCK_NUGET_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "blackduckNugetInspector",
+                "BD Nuget Inspector (Sunsetting)",
                 "bds-integrations-nuget-release",
                 "BlackduckNugetInspector",
                 "BlackduckNugetInspector",
@@ -45,7 +45,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct INTEGRATION_NUGET_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "integrationNugetInspector",
+                "Integration Nuget Inspector (Sunsetting)",
                 "bds-integrations-nuget-release",
                 "IntegrationNugetInspector",
                 "IntegrationNugetInspector",
@@ -57,7 +57,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct DOTNET3_NUGET_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "dotnet3NugetInspector",
+                "dotnet3 Nuget Inspector (Sunsetting)",
                 "bds-integrations-nuget-release",
                 "NugetDotnet3Inspector",
                 "NugetDotnet3Inspector",
@@ -69,7 +69,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct DOTNET5_NUGET_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "dotnet5NugetInspector",
+                "dotnet5 Nuget Inspector (Sunsetting)",
                 "bds-integrations-nuget-release",
                 "NugetDotnet5Inspector",
                 "NugetDotnet5Inspector",
@@ -81,7 +81,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct DETECT =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "detect",
+                "Detect",
                 "bds-integrations-release",
                 "com/synopsys/integration/synopsys-detect",
                 "com/synopsys/integration/synopsys-detect",
@@ -91,9 +91,45 @@ public class ArtifactoryProductsFactory {
                 nestedArtifactFinder
             );
 
+        ArtifactoryProduct DETECT_NUGET_INSPECTOR_LINUX =
+            new ArtifactoryProduct(new ArtifactoryProductDetails(
+                "Detect Nuget Inspector LINUX",
+                "bds-integrations-release",
+                "com/synopsys/integration/synopsys-detect",
+                "com/synopsys/integration/detect-nuget-inspector",
+                "NUGET_INSPECTOR_LINUX",
+                "-linux.zip"),
+                mavenVersionFinder,
+                nestedArtifactFinder
+            );
+
+        ArtifactoryProduct DETECT_NUGET_INSPECTOR_MAC =
+            new ArtifactoryProduct(new ArtifactoryProductDetails(
+                "Detect Nuget Inspector MAC",
+                "bds-integrations-release",
+                "com/synopsys/integration/synopsys-detect",
+                "com/synopsys/integration/detect-nuget-inspector",
+                "NUGET_INSPECTOR_MAC",
+                "-mac.zip"),
+                mavenVersionFinder,
+                nestedArtifactFinder
+            );
+
+        ArtifactoryProduct DETECT_NUGET_INSPECTOR_WINDOWS =
+            new ArtifactoryProduct(new ArtifactoryProductDetails(
+                "Detect Nuget Inspector WINDOWS",
+                "bds-integrations-release",
+                "com/synopsys/integration/synopsys-detect",
+                "com/synopsys/integration/detect-nuget-inspector",
+                "NUGET_INSPECTOR_WINDOWS",
+                "-windows.zip"),
+                mavenVersionFinder,
+                nestedArtifactFinder
+            );
+
         ArtifactoryProduct DETECT_FONT_BUNDLE =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "detectFontBundle",
+                "Detect Font Bundle",
                 "bds-integrations-release",
                 "com/synopsys/integration/synopsys-detect",
                 "com/synopsys/integration/integration-resources/fonts",
@@ -105,7 +141,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct DOCKER_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "dockerInspector",
+                "Docker Inspector",
                 "bds-integrations-release",
                 "com/synopsys/integration/blackduck-docker-inspector",
                 "com/synopsys/integration/blackduck-docker-inspector",
@@ -117,7 +153,7 @@ public class ArtifactoryProductsFactory {
 
         ArtifactoryProduct DOCKER_AIR_GAP_INSPECTOR =
             new ArtifactoryProduct(new ArtifactoryProductDetails(
-                "dockerAirGapInspector",
+                "Docker AirGap Inspector",
                 "bds-integrations-release",
                 "com/synopsys/integration/blackduck-docker-inspector",
                 "com/synopsys/integration/blackduck-docker-inspector",
@@ -152,16 +188,17 @@ public class ArtifactoryProductsFactory {
             );
 
         List<ArtifactoryProduct> artifactoryProducts = List.of(
-            BLACKDUCK_NUGET_INSPECTOR,
-            INTEGRATION_NUGET_INSPECTOR,
-            DOTNET3_NUGET_INSPECTOR,
-            DOTNET5_NUGET_INSPECTOR,
             DETECT,
+            DETECT_NUGET_INSPECTOR_LINUX,
+            DETECT_NUGET_INSPECTOR_MAC,
+            DETECT_NUGET_INSPECTOR_WINDOWS,
             DETECT_FONT_BUNDLE,
             DOCKER_INSPECTOR,
             DOCKER_AIR_GAP_INSPECTOR,
-            DETECT_TEST,
-            NUGET_TEST
+            BLACKDUCK_NUGET_INSPECTOR,
+            INTEGRATION_NUGET_INSPECTOR,
+            DOTNET3_NUGET_INSPECTOR,
+            DOTNET5_NUGET_INSPECTOR
         );
 
         return new ArtifactoryProducts(artifactoryProducts);
