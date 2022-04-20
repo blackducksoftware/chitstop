@@ -21,9 +21,6 @@ class Main extends Component {
                         <div>
                             <a href="https://github.com/blackducksoftware">Github</a> | <a href="https://eng-jenkins-dev01.dc1.lan/job/integration-builds-v2/">Jenkins</a>
                         </div>
-                        <div>
-                            Non-functional requirements are an implementation detail. - Seth Katzman, 2021-09-24
-                        </div>
                     </div>
                 </header>
                 <div id="middle" className="row">
@@ -31,7 +28,7 @@ class Main extends Component {
                 </div>
                 <footer id="footer" className="row">
                     <div className="col-lg-12">
-                        What is wroooong with you? | Weeeeee did it! | Billings'ed!!! | Never slather yourself in BBQ sauce in a den of hyenas | Piss Whale | Team Shit | Grapist | Sexy Fox | Bridge of Cheese
+                        What is wroooong with you? | Weeeeee did it! | Billings'ed!!! | Never slather yourself in BBQ sauce in a den of hyenas | Grapist | Bridge of Cheese
                     </div>
                 </footer>
             </div>
