@@ -22,7 +22,7 @@ public class VmKey extends Stringable {
             vmKey
                 .replace("https://", "")
                 .replace("http://", "")
-                .replace("us1a-int-", "")
+                .replace("us03-int-", "")
                 .replace(".nprd.sig.synopsys.com", "");
     }
 
@@ -31,7 +31,7 @@ public class VmKey extends Stringable {
     }
 
     public HttpUrl https() throws IntegrationException {
-        return new HttpUrl(String.format("https://us1a-int-%s.nprd.sig.synopsys.com", value));
+        return new HttpUrl(String.format("https://us03-int-%s.nprd.sig.synopsys.com", value));
     }
 
 }
