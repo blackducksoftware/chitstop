@@ -28,11 +28,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.blackduck.integration.chitstop.ApplicationProperties;
+import com.blackduck.integration.chitstop.exception.GameOver;
 import com.blackduck.integration.chitstop.rest.model.ApiToken;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.blackduck.integration.chitstop.ApplicationProperties;
-import com.blackduck.integration.chitstop.exception.GameOver;
 
 @Repository
 public class ApiTokenStorage {

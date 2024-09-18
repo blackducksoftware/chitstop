@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import com.synopsys.integration.chitstop.rest.model.ArtifactoryProperty;
+import com.blackduck.integration.chitstop.rest.model.ArtifactoryProperty;
 
 public class LatestPropertySelectorTest {
     @Test

@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blackduck.integration.chitstop.rest.model.ApiToken;
-import com.blackduck.integration.chitstop.service.ApiTokens;
 import com.blackduck.integration.chitstop.rest.model.VmKey;
+import com.blackduck.integration.chitstop.service.ApiTokens;
 
 @RestController
 @RequestMapping("/api/token")

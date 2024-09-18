@@ -9,8 +9,8 @@ package com.blackduck.integration.chitstop.service.utility;
 
 import java.util.Optional;
 
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
 
 public class HttpUrlCreator {
     public static Optional<HttpUrl> createSafely(String url) {

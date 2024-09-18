@@ -13,8 +13,8 @@ import java.util.function.Predicate;
 
 import com.blackduck.integration.chitstop.rest.model.ArtifactoryProductDetails;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryChildItem;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
 
 public interface ArtifactFinder {
     BiFunction<ArtifactoryProductDetails, String, Predicate<ArtifactoryChildItem>> ITEM_MATCHES =

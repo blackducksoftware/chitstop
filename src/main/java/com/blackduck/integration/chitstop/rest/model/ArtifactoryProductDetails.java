@@ -7,7 +7,7 @@
  */
 package com.blackduck.integration.chitstop.rest.model;
 
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.util.Stringable;
 
 public class ArtifactoryProductDetails extends Stringable {
     private final String name;

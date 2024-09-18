@@ -10,7 +10,7 @@ package com.blackduck.integration.chitstop.rest.model;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.util.Stringable;
 
 public class TokenDetails extends Stringable {
     @NotNull

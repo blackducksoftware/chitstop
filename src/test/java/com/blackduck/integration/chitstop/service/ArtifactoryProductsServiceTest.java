@@ -15,22 +15,22 @@ import java.util.Optional;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import com.blackduck.integration.chitstop.ChitstopApplication;
+import com.blackduck.integration.chitstop.rest.model.ArtifactoryProductDetails;
+import com.blackduck.integration.chitstop.service.artifactory.ArtifactResult;
+import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryClient;
+import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryProduct;
+import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryProducts;
+import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryProductsFactory;
+import com.blackduck.integration.chitstop.service.artifactory.LatestPropertySelector;
+import com.blackduck.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
+import com.blackduck.integration.chitstop.service.artifactory.artifactfinder.NestedArtifactFinder;
+import com.blackduck.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.log.IntLogger;
+import com.blackduck.integration.rest.HttpUrl;
+import com.blackduck.integration.rest.client.IntHttpClient;
 import com.google.gson.Gson;
-import com.synopsys.integration.chitstop.ChitstopApplication;
-import com.synopsys.integration.chitstop.rest.model.ArtifactoryProductDetails;
-import com.synopsys.integration.chitstop.service.artifactory.ArtifactResult;
-import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryClient;
-import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProduct;
-import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProducts;
-import com.synopsys.integration.chitstop.service.artifactory.ArtifactoryProductsFactory;
-import com.synopsys.integration.chitstop.service.artifactory.LatestPropertySelector;
-import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
-import com.synopsys.integration.chitstop.service.artifactory.artifactfinder.NestedArtifactFinder;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.log.IntLogger;
-import com.synopsys.integration.rest.HttpUrl;
-import com.synopsys.integration.rest.client.IntHttpClient;
 
 public class ArtifactoryProductsServiceTest {
     @Test

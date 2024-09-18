@@ -9,7 +9,7 @@ package com.blackduck.integration.chitstop.service.artifactory;
 
 import java.util.List;
 
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.util.Stringable;
 
 public class ArtifactoryItem extends Stringable {
     private final String repo;

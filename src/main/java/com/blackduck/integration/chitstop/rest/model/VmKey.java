@@ -9,9 +9,9 @@ package com.blackduck.integration.chitstop.rest.model;
 
 import javax.validation.constraints.NotBlank;
 
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
+import com.blackduck.integration.util.Stringable;
 
 public class VmKey extends Stringable {
     @NotBlank

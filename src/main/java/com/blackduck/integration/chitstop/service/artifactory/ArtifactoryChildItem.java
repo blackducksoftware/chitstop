@@ -7,7 +7,7 @@
  */
 package com.blackduck.integration.chitstop.service.artifactory;
 
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.util.Stringable;
 
 public class ArtifactoryChildItem extends Stringable {
     private final String uri;

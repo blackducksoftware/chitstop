@@ -10,15 +10,15 @@ package com.blackduck.integration.chitstop.service.artifactory;
 import java.io.IOException;
 import java.util.Optional;
 
-import com.google.gson.Gson;
 import com.blackduck.integration.chitstop.rest.model.ArtifactoryPropertiesResponse;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.log.IntLogger;
-import com.synopsys.integration.rest.HttpMethod;
-import com.synopsys.integration.rest.HttpUrl;
-import com.synopsys.integration.rest.client.IntHttpClient;
-import com.synopsys.integration.rest.request.Request;
-import com.synopsys.integration.rest.response.Response;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.log.IntLogger;
+import com.blackduck.integration.rest.HttpMethod;
+import com.blackduck.integration.rest.HttpUrl;
+import com.blackduck.integration.rest.client.IntHttpClient;
+import com.blackduck.integration.rest.request.Request;
+import com.blackduck.integration.rest.response.Response;
+import com.google.gson.Gson;
 
 public class ArtifactoryClient {
     private final IntLogger logger;

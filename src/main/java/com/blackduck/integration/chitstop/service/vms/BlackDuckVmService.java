@@ -14,12 +14,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blackduck.integration.blackduck.configuration.BlackDuckServerConfig;
 import com.blackduck.integration.chitstop.rest.model.ApiToken;
-import com.synopsys.integration.blackduck.configuration.BlackDuckServerConfig;
 import com.blackduck.integration.chitstop.rest.model.VmKey;
 import com.blackduck.integration.chitstop.service.ApiTokens;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
 
 @Service
 public class BlackDuckVmService {

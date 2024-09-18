@@ -19,8 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blackduck.integration.chitstop.rest.model.ArtifactoryProductDetails;
-import com.blackduck.integration.chitstop.rest.model.ArtifactoryProperty;
 import com.blackduck.integration.chitstop.rest.model.ArtifactoryPropertiesResponse;
+import com.blackduck.integration.chitstop.rest.model.ArtifactoryProperty;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactResult;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryClient;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryPath;
@@ -29,8 +29,8 @@ import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryProduct
 import com.blackduck.integration.chitstop.service.artifactory.LatestPropertySelector;
 import com.blackduck.integration.chitstop.service.artifactory.artifactfinder.ArtifactFinder;
 import com.blackduck.integration.chitstop.service.artifactory.versionfinder.VersionFinder;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
 import com.vdurmont.semver4j.Semver;
 
 @Service

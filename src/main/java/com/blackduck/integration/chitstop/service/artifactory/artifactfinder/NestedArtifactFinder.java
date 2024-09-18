@@ -16,8 +16,8 @@ import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryFile;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryItem;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactoryPath;
 import com.blackduck.integration.chitstop.service.utility.HttpUrlCreator;
-import com.synopsys.integration.exception.IntegrationException;
-import com.synopsys.integration.rest.HttpUrl;
+import com.blackduck.integration.exception.IntegrationException;
+import com.blackduck.integration.rest.HttpUrl;
 
 public class NestedArtifactFinder implements ArtifactFinder {
     private final ArtifactoryClient artifactoryClient;

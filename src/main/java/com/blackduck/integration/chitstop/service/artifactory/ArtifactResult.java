@@ -7,7 +7,7 @@
  */
 package com.blackduck.integration.chitstop.service.artifactory;
 
-import com.synopsys.integration.util.Stringable;
+import com.blackduck.integration.util.Stringable;
 
 public class ArtifactResult extends Stringable {
     public static final ArtifactResult NOT_FOUND = new ArtifactResult("", "", "", false);

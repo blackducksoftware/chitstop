@@ -14,9 +14,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.NugetVersionFilter;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.SemverSupport;
-import com.synopsys.integration.chitstop.service.artifactory.versionfinder.VersionFilter;
+import com.blackduck.integration.chitstop.service.artifactory.versionfinder.NugetVersionFilter;
+import com.blackduck.integration.chitstop.service.artifactory.versionfinder.SemverSupport;
+import com.blackduck.integration.chitstop.service.artifactory.versionfinder.VersionFilter;
 import com.vdurmont.semver4j.Semver;
 
 public class NugetVersionFinderTest {

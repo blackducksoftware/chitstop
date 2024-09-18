@@ -24,7 +24,7 @@ import com.blackduck.integration.chitstop.rest.model.ArtifactoryProductDetails;
 import com.blackduck.integration.chitstop.rest.model.ArtifactoryProperty;
 import com.blackduck.integration.chitstop.service.ArtifactoryProductsService;
 import com.blackduck.integration.chitstop.service.artifactory.ArtifactResult;
-import com.synopsys.integration.exception.IntegrationException;
+import com.blackduck.integration.exception.IntegrationException;
 
 @RestController
 @RequestMapping("/api/artifactory")
