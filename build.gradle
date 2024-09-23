@@ -1,6 +1,14 @@
 buildscript {
     apply from: 'https://raw.githubusercontent.com/blackducksoftware/integration-resources/master/gradle_common/buildscript-repositories.gradle', to: buildscript
-    apply from: 'https://raw.githubusercontent.com/blackducksoftware/integration-resources/master/gradle_common/buildscript-dependencies.gradle', to: buildscript
+
+    apply from: 'https://raw.githubusercontent.com/blackducksoftware/integration-resources/master/gradle_common/buildscript-cgp-version.gradle'
+
+    ext {
+        javaTargetCompatibility = 8
+        javaSourceCompatibility = 8
+    }
+
+    dependencies { classpath "com.blackduck.integration:common-gradle-plugin:${managedCgpVersion}" }
 }
 
 plugins {
@@ -8,7 +16,7 @@ plugins {
     id "com.moowork.node" version "1.3.1"
 }
 
-version = '0.8.2'
+version = '0.9.0'
 description = 'Management of the Integration Team\'s Black Duck VM\'s'
 
 ext {
@@ -16,7 +24,7 @@ ext {
     javaTargetCompatibility = JavaVersion.VERSION_11
 }
 
-apply plugin: 'com.synopsys.integration.solution'
+apply plugin: 'com.blackduck.integration.solution'
 apply plugin: 'io.spring.dependency-management'
 
 node {
@@ -35,7 +43,7 @@ processResources.dependsOn 'buildReactApp'
 clean.delete << file('src/main/resources/static/dist')
 
 dependencies {
-    implementation 'com.synopsys.integration:blackduck-common:58.1.0'
+    implementation 'com.blackduck.integration:blackduck-common:67.0.0'
     implementation 'com.vdurmont:semver4j:3.1.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
